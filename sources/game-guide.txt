@@ -1,0 +1,1647 @@
+===============================================================================
+             C h r i s    L e e ' s
+
+    P o p u l o u s    I I     G u i d e                                 v 0.91
+===============================================================================
+
+
+
+===============================================================================
+The officially latest (as well as latest, official) version of this FAQ/Guide
+can be found at www.gamefaqs.com.
+===============================================================================
+
+
+
+===============================================================================
+Table of Contents                                                          *---
+-------------------------------------------------------------------------------
+A word on navigation: to jump to a specific section, simply use the 'FIND'
+command (CTRL-F or Apple-F) and type in the four letter key next to the section
+(doing only the three numbers after the asterisk will probably send you to a
+random section of the guide).
+
+Note that if you ever want to navigate back to the Table of Contents, search
+for (with an asterisk in front) '---'.
+
+Periodically, you'll find mentions of "find shortcuts" - the asterisk followed
+by the three digit number is exactly what they reference, only without the
+asterisk.
+-------------------------------------------------------------------------------
+Introduction   *INT::
+How To Play   *HOW::
+
+Basics & Bugs  *BAS::
+    1.  Computer Assistant   *BAS:COM
+    2.  Pathfinding Issues   *BAS:PAT
+    3.  Max Population   *BAS:MAX
+    4.  Population Control   *BAS:POP
+    5.  Unit Strength   *BAS:UNI
+    6.  Enemy AI   *BAS:ENE
+    7.  Scoring/Experience Bolts   *BAS:SCO
+    8.  Minor Gods   *BAS:MIN
+
+Other Bugs   *OTH::
+    1.  Edge Issues   *OTH:EDG
+    2.  Intervention Limits   *OTH:INT
+    3.  Map Limits   *OTH:MAP
+    4.  Platform Issues   *OTH:PLA
+
+People Effects   *PEO::
+    1.  Raise/Lower Land   *PEO:RAI
+    2.  Place Papal Magnet   *PEO:PLA
+    3.  Perseus   *PEO:PER
+    4.  Plague   *PEO:PLA
+    5.  Armageddon   *PEO:ARM
+
+Vegetation Effects   *VEG::
+    1.  Plant Trees   *VEG:PLANTT
+    2.  Plant Flowers   *VEG:PLANTF
+    3.  Swamps   *VEG:SWA
+    4.  Fungus   *VEG:FUN
+        a.  Special Notes/Patterns   *VEG:FUN:SPE
+        b.  Normal Notes   *VEG:FUN:NOR
+    5.  Adonis   *VEG:ADO
+
+Earth Effects   *EAR::
+    1.  Build Roads   *EAR:BUILDR
+    2.  Build City Walls   *EAR:BUILDC
+    3.  Earthquake   *EAR:EAR
+    4.  Batholith   *EAR:BAT
+    5.  Hercules   *EAR:HER
+
+Fire Effects   *FIR::
+    1.  Fire Column   *FIR:FIR
+    2.  Rain of Fire   *FIR:RAI
+    3.  Achilles   *FIR:ACH
+    4.  Volcano   *FIR:VOL
+    5.  Divine Fire   *FIR:DIV
+
+Air Effects   *AIR::
+    1.  Lightning Bolt   *AIR:LIG
+    2.  Whirlwind   *AIR:WHI
+    3.  Storm   *AIR:STO
+    4.  Odysseus   *AIR:ODY
+    5.  Hurricane  *AIR:HUR
+
+Water Effects   *WAT::
+    1.  Basalt   *WAT:BAS
+    2.  Whirlpool   *WAT:WHI
+    3.  Baptismal Fonts   *WAT:BAP
+    4.  Helen of Troy   *WAT:HEL
+    5.  Tidal Wave   *WAT:TID
+
+Appendix   *APP
+    History   *APP:HIS
+    All Works      *APP:ALL
+===============================================================================
+
+
+
+===============================================================================
+Introduction                                                             *INT::
+-------------------------------------------------------------------------------
+Populous II is a really old game.  In fact, outside of some hardcore gaming
+circles, it's a pretty obscure game.  That being said, its gameplay is unique
+and unmatched even by its sequel (Populous III reverted from being a God game
+to being a standard fare strategy game).  So if you like/can tolerate retro
+gaming, it's worth the effort to pick this up again.
+
+That being said, there's almost nothing written about this game, save for a
+hard-to-find strategy guide and limited documentaiton online.  So I aim to
+fill that gap.
+
+If you have any comments, questions, or just want to say hey, just send me
+an email to:
+        s__i_m_____u_lc_r_a@uchicago.edu
+WITHOUT the underscores.  I just put those in there from crawlers nabbing my
+email for spam purposes.
+
+This guide is a work in progress, so please feel free to give me your feedback.
+I try to respond to all emails, but please don't be offended if I don't, as I
+tend to have a pretty busy schedule these days.  Cheers!
+===============================================================================
+
+
+
+===============================================================================
+How to Play                                                              *HOW::
+-------------------------------------------------------------------------------
+In this day and age, if you want to play Populous II, you either need to resort
+to super nintendo emulation (for Populous II the console game) or DOS emulation
+(for Populous II the computer game).  I definitely recommend the latter, as
+the super nintendo version is gimped in many ways:  less levels, a missing
+intervention, and definitely a much worse control scheme.
+
+If you're feeling incredibly legit, you can try and eBay an old floppy or CD
+of this game, but I think that's really pushing it as this game is essentially
+abandoned.  Go to one of the many abandonware sites out there and find it.
+Install DOSBox, follow the instructions, and then type "go" to start.
+
+Reader Jamie also mentioned that a fully legit way to go about getting this
+game is to take advantage of Good Old Games (www.gog.com).  It's the DOS
+version (which this guide recommends), comes with the manual, and is only 6
+bucks.  Support retro gaming!
+
+If you need more help then that, feel free to get in touch with me.  I'll try
+to expand this section as necessary.  Though honestly, if you're already
+looking to play a retro game like Populous II, you're probably going to be
+fine on your own.
+===============================================================================
+
+
+
+===============================================================================
+Basics                                                                   *BAS::
+-------------------------------------------------------------------------------
+An unsorted hodgepodge of basic things you need to know.
+-------------------------------------------------------------------------------
+1.  Computer Assistant                                                 *BAS:COM
+
+Inside the game options is an option to turn on a "Computer Assistant."  This
+computer assistant will take care of flattening land for you (though in a
+specific manner, see below) as well as regularly sprogging settlements, whether
+you need it to or not.  This may sound like a handicap for newbie players, but
+in reality, learning to master the computer assistant is an essential skill for
+prospering in this game.
+    That being said, I highly recommend playing at least the first ten conquest
+maps without an assistant, just so you can find a rhythm of sprogging, land
+management, and intervention use.  After that, flip it on and see how much more
+you can accomplish.
+    It has been brought to my attention, however, that if you're not using the
+DOS version, the computer assistant may be very hard to deal with, since only
+the DOS version has really good support for a mouse interface.  Using a SNES
+controller, for example, to complement/fight the computer assistant can get
+old very quickly.  In such a case, you'll have to exercise your own discretion,
+but I highly recommend getting the DOS version of Populous II.  The SNES was
+sufficiently nerfed in difficulty so that you don't need a computer assistant
+(but there are only 25 levels), but from what I've heard the Amiga version just
+puts you at a disadvantage compared to the DOS version.
+
+Anyway, when it comes to leveling land, the computer assistant always strives
+to make enough flat land around a settlement so that it can expand into a
+castle.  The only problem is that it _only_ does that.  In fact, if you don't
+pay attention, the assistant will level enough land to make castles and will
+stop trying to actively help you expand, which requires you to remain vigilant
+about keeping your territory growing.
+    The assistant is also _very_ finicky when it comes to chunks of land it
+can't affect to help make castle property.  If you're on a map that has "can't
+raise land" enabled and the assistant runs into a single tile that needs to be
+raised, it'll completely stop and give up, even if every other tile nearby
+can be lowered just fine.
+    If you have two settlements on different elevations, the assistant will
+arbitrarily choose one to help out at the expense of the other.  Frequently
+this means that the assistant will start raising land to help out a settlement
+that spawned stupidly on a hill, uprooting many castles in the process.  In
+the worst case, the assistant starts fighting with itself, constantly raising
+and lowering the same chunk of land.
+    The assistant will also help clear up damaged land on occasion, but not
+very often.  Moreover, on occasion your assistant will help recover from
+Earthquake and some other interventions, but this is _very_ rare, so you
+shouldn't rely on it.
+
+When it comes to sprogging, the assistant follows the Chicago rules of voting:
+early and often.  In practice, this means on later maps (where mana production
+is less fertile), your assistant will gleefully sprog settlements, creating
+fragile walkers (since it's so early) which will have no place to settle (since
+mana is so tight that you can't raise or lower land).  They end up dying and
+you end up stunting your own growth.
+    Even with this shortcoming, later on this aggressive sprogging works out
+quite well when you have Go To Papal Magnet enabled, as your assistant will
+ensure a steady stream of walkers to strengthen your leader.
+    However, be warned that on maps with "no sprog" enabled, your assistant
+will still "try."  In effect, this means your assistant is right-clicking on
+all settlements which, without sprogging enabled, lowers land.  This means that
+in these situations, your "assistant" will "helpfully" destroy all your
+settlements for you.  Needless to say, on these conquest maps you should never
+turn your assistant on.  As far as I can tell, the designers anticipated this
+as all conquest maps I've played where sprogging is disabled have enemy deities
+that are some form of slow ("very slow", "sleepy", "labored").
+
+Keeping all this in mind, you have to know _when_ to use the assistant and
+_how_ to use it.  For example, the last thing you want when the first hint of
+Plague hits you is a sprog-happy assistant spreading it to the rest of your
+population.  Also, you don't really want it to prevent your efforts to drown
+any infected walkers.  You also, for example, don't want to have the assistant
+on in sparse conditions, where all it will do is waste your mana by sprogging
+walkers to their death.
+    You also have to make sure to raise/lower extra land outside of any "castle
+land" the assistant is setting up.  This way sprogged walkers have a place to
+go settle, and this helps create a virtuous cycle where the assistant then
+tries to expand that chunk of land into castle property -> you create a bit of
+extra land on top of that -> walker settles there -> assistant expands that
+into castle land -> etc.
+    You also have to remain very diligent of what elevation all your
+settlements are at and what the map rules are.  An assistant is more than happy
+to blow all your mana trying to raise all your territory to elevation 8 after
+a stray walker settles on top of a mountain.  Similarly, you have to make sure
+to not "foil" an assistant on maps where either raise or lower are not enabled,
+as simply raising land that an assistant was already raising (and thus
+creating a hill) on a map that doesn't allow for "lower land" will cripple the
+assistant.
+
+An assistant is more than just something you can "set and forget."  You have to
+be active and diligent about it, switching it off when necessary.  In the ideal
+case, the assistant works out the tedious details for you while you still
+actively oversee expansion, all the while having more time spared to repair
+damaged land and let loose with interventions.  In the worst case, with
+improper use, you are constantly fighting the assistant's intentions, all the
+while it drains all your mana for fighting.  The computer assistant is there
+for a reason--almost necessary for any conquest map past #100 or so.  But, the
+assistant is also a skill to develop over the course of the game.  Learn it.
+-------------------------------------------------------------------------------
+2.   Pathfinding Issues                                                *BAS:PAT
+
+Whenever you have Go To Papal Magnet influence enabled or have a few heroes
+running about, it's a good idea to periodically check in on your wandering
+units.  The reason is because the path finding engine in Populous II is a bit
+dumb (what do you expect from something that was made before Windows?).  So
+on occasion you'll have walkers or heroes that _really_ want to get to a
+location but are stopped at a shoreline.  For some reason, they don't have the
+good sense to navigate around that shoreline, which means it's up to you, the
+almighty deity of these people, to raise some land to give them an alternate
+route to their destination.
+
+Another common pathfinding issue tends to occur when you have the Fight Enemy
+influence enabled or have lots of Rocks around.  In such a case you'll see
+walkers, leaders, and heros (frequently the latter two) moving back and forth
+on one tile, or two walkers trying to engage each other but constantly just
+moving past each other and never actually meeting.  I suspect this is an
+artifact of the primitiveness of the pathfinding engine.  In most cases you
+can fix this by switching to Settle influence, altering the land a bit (either
+to sink a rock or level out a hill), or switching to Go To Papal Magnet
+influence and then switching back after the walkers/leaders have moved away
+from their current location.
+-------------------------------------------------------------------------------
+3.  Max Population                                                     *BAS:MAX
+
+Note that there is actually a sort of "maximum" to your population.  You won't
+hit it often, but there are some long-running conquest maps (namely ones
+where you don't have Armageddon or some hard-hitting offensive intervention)
+where this will become an issue.  Namely, once you approach and hit 50% of the
+the stadium in the top right, the game will severely curtail your ability to
+generate new units.  This has two effects:
+    You cannot sprog!  You can right click all you want, but no unit will pop
+out.  This is most problematic if you experience the issue in BAS:UNI where
+your leader is so high strength as to not pop out of a settlement, as you'll
+effectively keep your leader trapped in a settlement.  In this situation, you
+have to either raise or lower land to destroy the settlement so that your
+leader is freed.
+    Adonis will no longer split after a victory!  This turns Adonis from being
+one of the best interventions in the game into being an expensive, dumb
+Perseus (though he still has immunity to Swamps and Fungus).
+
+It's important to remain aware of your population.  The inability to sprog
+means Go To Papal Magnet gets a lot weaker with the computer assistant, for
+example.  Plus it means you have to be more diligent when responding to
+displacing events.
+-------------------------------------------------------------------------------
+4.  Population Control                                                 *BAS:POP
+
+One of the most important strategies to succeed in Populous II is population
+control.  The way to defeat the enemy is to contain their ability to expand
+their population and consequently their mana base.  You may start off horribly
+outmanned in many of the later conquest maps, but the key to victory is to
+use everything you can to disrupt their population control to eventually
+outgrow them, all while recovering from the effects of their intervention.  As
+such, whenever relevant, I signify when certain interventions make for excellent
+early game population control.
+
+Remember:  even if it looks like the enemy has a lot of dots on their map, if
+all those dots are tiny houses and huts instead of castles, you're doing ok.
+-------------------------------------------------------------------------------
+5.  Unit Strength                                                      *BAS:UNI
+
+The manual briefly touches on this, but I think it needs more clarification.
+If at any point you have a unit or settlement in focus (they appear in the
+stadium), there are two important indicators of a unit/settlement
+effectiveness.  The first is their "technology" level, which is indicated by
+a weapon icon in the lower-left of the stadium.  As far as I can tell, it
+ranges from:
+        Fist (worst)
+        Fist with Rock
+        Spear
+        Bow and Arrow
+        Flail
+        Crossbow
+        Sword (best)
+All this means is how much damage they do per 'cycle' of fighting when they
+run into an enemy unit.
+    The second is the different flag poles around the stadium.  They represent
+the actual strength or health of the unit.  Think of them like digits of a
+number; the furthest right is the "ones" digit, then the one to the left is the
+"tens" digit, etc.  As long as a walker is in a settlement, this will steadily
+climb (indicated by rising flags).  When sprogged or the settlement reaches
+maximum capacity, a walker will take some of the strength of the settlement
+with them. As long as any unit is not inside a settlement, they will slowly
+lose strength due to exposure; on some map types this exposure damage is very
+severe (swamp is the worst I believe).  When any walker, hero, or settlement
+(from Lightning Bolt) hits 0 strength, they die/are destroyed.  While there are
+eight total flag poles, in practice you will almost never get past the fifth
+flag pole from the right (the 10,000s digit). In a few rare cases you may get
+to the sixth flag pole from the right, just barely (the 100,000s digit), most
+likely from creating a Hercules hero. But you will most likely hit other issues
+before you get much higher (especially the max population issue in BAS:MAX).
+All of this is, of course, most likely only possible on your leader and after
+you've had Go To Papal Magnet on for a while to let walkers collide.
+
+Every time two friendly walkers collide, they merge into one unit with the
+total strength of the two combined and the highest technology level of the two.
+ So merging a Sword guy and a Fist guy will still result in a guy with Sword
+technology.  So even if you don't have a lot of Castles (which produce Sword
+technology unites), even just having a few is good enough if you can get your
+walkers to merge a lot.
+
+In practice though, I rarely find it important enough to pay much attention to
+technology.  Brute unit strength seems to matter a lot, especially since it
+seems like Sword or no, units take the same amount of exposure damage.
+
+There is a particular issue with units with high strength however, only really
+noticable with a leader that you've been building up.  If a unit with a really
+high strength enters a settlement that has a much lower maximum-possible
+strength, instead of immediately popping back out, the leader will get _stuck_.
+I suspect internally, having such a large number causes a "rollover" effect,
+where it goes from being a massive large number to being a really small number
+(programmers familiar with how negative numbers are represented internally
+will understand).  Point is, once this happens, you have to manually sprog the
+leader out, or else he won't do anything.  More problematically, this issue
+tends to start cropping up around the same time as the issue in BAS:MAX, which
+means soon you won't even be able to sprog.
+-------------------------------------------------------------------------------
+6.  Enemy AI                                                           *BAS:ENE
+
+Every time you're about to do a conquest game, be sure to click on the button
+next to your opponent's name.  Even if it's the same deity, the AI most likely
+will have changed.
+
+AI is described by two measures: how fast it is, and how aggressive it is.
+Speed is gauged by words like Very Slow, Sleepy, Labored, Medium, Very
+Fast, etc.  Aggressiveness is gauged by words like Pacifist, Killer, etc.
+Once you have an idea of the enemy, you should adapt your strategy to them.
+For very aggressive AIs, you should probably toss your Go To Papal Magnet into
+their territory early on, steal the offensive from them.  For Very Fast, you
+should probably refrain from time-consuming interventions, like Build Roads or
+Fungus.
+-------------------------------------------------------------------------------
+7.  Scoring/Experience Bolts                                           *BAS:SCO
+
+A major focus of this guide is basically arguing the best way to spend your
+hard-earned experience bolts on various intervention effects.  What are they?
+
+Experience Bolts are rewarded at the end of a map based exclusively on score.
+You start off with five to distribute, but after that, you can get anywhere
+from one to five, whether you win or lose.  (Note that if you lose a conquest
+map, even though you don't get the final battle-review scene, you still gain
+an experience bolt to distribute in the 'Create Your Diety' section.)
+
+Scoring is based on a bunch of voodoo that took place during the match.  It
+shows you how much mana you accumulated, how many leaders you've killed, etc
+but the single most important determinant on your score is how many
+interventions you do.  It might be apparent at the low end (if you do less than
+50, for example), but becomes much more apparent at the high end (greater than
+100).
+
+As such, some interventions become very good for ensuring you have a decent
+rate of experience bolt gain at the end of the match:
+    Place Papal Magnet
+    Plant Flowers
+    Fungus (each time a new one is created, I believe this counts as an
+        intervention)
+    Build Road
+    Whirlpool
+If you use these aggressively (which you should be doing anyway, save for
+Build Road), you'll find yourself regularly getting at least three bolts at
+the end of match.
+
+Note that thoeretically you can degeneratively sit there spamming Place Papal
+Magnet back and forth by one tile, but that would honestly get very boring
+very quickly for just getting one or two extra experience bolts per match.
+
+For reference sake, about 13-15k points per score equals an experience bolt.
+-------------------------------------------------------------------------------
+8.  Minor Gods                                                         *BAS:MIN
+
+Once the map is mostly settled, the game starts introducing disruptive "Minor
+Gods" as basically a "HURRY UP!" reminder.  These tend to be equalizers; they
+are map-wide effects (in that they go from one end of the map to the other),
+so the person with the most territory will most likely be the most affected.
+
+Fire God
+    Creates lots of Fire Columns as it walks across the map.  The second-worst
+    one to get, and can easily destory a lot of valuable territory when it
+    appears.
+
+Earth God (Earth Elemental in the manual)
+    Easily the worst.  Creates a special kind of Earthquake (one that doesn't
+    open up), so you always know if an Earth God has been by.  Unlike an
+    actual Earthquake, you can immediately raise/lower land as he's walking
+    around to repair the damage, and in fact if you can raise/lower the land
+    so that the Earth God is walking on an incline or on water, no damage
+    will occur!
+
+Plant God
+    Just grows a lot of trees.  Actually does nothing if the tree-limit for
+    the map has been reached.  Fun trick: if it goes through the enemy land,
+    lighting one tree on fire will create a long fire effect as each tree
+    burns down.
+
+Wind God
+    Drops lots of Whirlwinds as it wanders from one end of the map to the
+    other.  Mostly harmless, unless those Whirlwinds toss your walkers into
+    other interventions or start wandering into the water, spawning lots of
+    Whirlpools.
+
+Water God (Poseidon?)
+    Just lowers the land to create a 2x2 water square as it wanders. Like a
+    Tidal Wave, except much, much, much weaker.  Considering that this
+    generally just means a free sprogging and doesn't potentially set you up
+    for disaster, this is probably the most harmless minor god out there.
+===============================================================================
+
+
+===============================================================================
+Other Bugs                                                               *OTH::
+-------------------------------------------------------------------------------
+1.  Edge Issues                                                        *OTH:EDG
+
+Due to what appears to be a programming error regarding the dimensions of the
+map, the absolute edge of the map is mostly ignored by both the AI and your
+computer assistant.
+
+This also means that there are certain interaction issues:  The very top cell
+is problematic for walkers, and the very edges of the maps will cause Tidal
+Waves to die out before being able to do anything (and will just eat your
+mana).
+-------------------------------------------------------------------------------
+2.  Intervention Limits                                                *OTH:INT
+
+While you won't run into this issue for a while, there is a cap on the number
+of simultaneous interventions that can occur at the same time.  This is a
+_shared_ limitation between you and the enemy, and unfortunately AI will have
+the ability to lay out so many interventions as to reach this cap.
+
+This becomes apparent in a late conquest map where you're up against a diety
+that can only do Storm.  Once they achieve enough mana, they will constantly
+sweep your land and lay out Storms and basically block you from ever doing
+another intervention for the rest of the map.  There's nothing you can do about
+this, though you can still Place Papal Magnet.  Just do that and try to make
+an early push.
+-------------------------------------------------------------------------------
+3.  Map Limits                                                         *OTH:MAP
+
+Trees, Rocks, and City Walls have a finite cap that they are allowed on the
+map.  This means that once you hit the cap, the Plant Trees, Batholith, and
+Build City Walls interventions will cease to have an effect, until you destroy
+some.
+-------------------------------------------------------------------------------
+4.  Platform Issues                                                    *OTH:PLA
+
+There appear to be some differences between DOS and other platforms.  To
+summarize:
+
+    DOS version may have the weakest pathfinding (it may have been improved
+        when ported to other systems).
+    DOS version has maximum allowable number of simultaneous sounds.  This has
+        the effect that if you have something Plagued in your view, the "caw
+        caw" noise will almost certainly prevent anything else from playing.
+    Other versions may have noticably worse performance, due to a lack of
+        optimizations.
+===============================================================================
+
+
+
+===============================================================================
+People Effects                                                           *PEO::
+-------------------------------------------------------------------------------
+Some basic stuff here. Spending experience bolts here is debatable, as I can
+only really tell that two abilities benefit (which is the least out of any
+effect).  But one of them is so good it might be worth it, based on your
+playstyle.
+-------------------------------------------------------------------------------
+1.  Raise/Lower Land                                                   *PEO:RAI
+
+Does:  Exactly what it says.  Note that even if you don't have this displayed
+on the conquest map menu, you may still be able to raise/lower land - your
+ability to do so is not based on having to activate this effect, but rather the
+conquest map rules themselves.
+
+Experience Bolts:  May make each use cheaper, but if it does, the effect is so
+subtle it might as well not do anything at all.
+-------------------------------------------------------------------------------
+2.  Place Papal Magnet                                                 *PEO:PLA
+
+Does:  If you have a leader, this will let you mark a new location for your
+papal magnet. In some maps (notably ones without Armageddon available), this
+plus the Go To Papal Magnet influence will be the main path you have to
+victory.
+
+Experience bolts:  Doesn't do anything as far as I can tell.
+-------------------------------------------------------------------------------
+3.  Perseus                                                            *PEO:PER
+
+Does:  Turns your leader into Perseus.  Perseus has the same strength as the
+leader used to create him.  He will also avoid obstacles.
+
+Experience bolts:  Makes him move faster.
+
+Notes:  Perseus and Achilles are the two Tier 3 heroes, and I'd argue that
+Perseus is the better of the two in general situations. Tier 3 heroes are cheap
+and easy to get up and running, though of course by the time you create one he
+won't be that strong.
+    Unlike other heroes, Perseus isn't immune to anything--heroes are immune to
+the divine interventions from the same effect, but there's nothing in the
+People Effects that can affect Perseus. However, Perseus makes up for this by
+being _virtually_ immune to many effects--he'll walk around traps and
+obstacles. Essentially, this means he's immune to Swamps, Fungus (unless they
+bloom on top of him), Earthquake, Lava (provided it's stopped by a hill so he
+has an alternate route), and Baptismal Fonts.
+    Of these, Lava is the most likely to kill him, as it comes out so fast he
+probably won't be able to get out the way.  Which makes Fire Perseus's
+weakness. A fine coincidence, since the other Tier 3 hero is Achilles, who is
+immune to Fire effects.
+
+Putting points here is not worth it on its own; while getting Perseus to move
+faster is certainly nice, but isn't that different from the other heroes, so
+this shouldn't be the only reason you have to invest here.
+    However, because Perseus is able to maneuver around things that would kill
+many other heroes, you'll still find plenty of use for him.  Only have
+Hercules and Perseus available, but there are Swamps galore?  No problem!
+Just send lots of Perseus instead!  Even if you have "better" heroes,
+available, if there's a wide diversity of hazards (Swamps and Baptismal Fonts
+for example), Perseus may be your best option.
+-------------------------------------------------------------------------------
+4.  Plague                                                             *PEO:PLA
+
+Does:  Lets you infect a settlement or walker with a contagious plague.  While
+plagued, the settlement makes minimal contribution to mana.  When Armageddon is
+called, all plagued settlements and walkers instantly disintegrate.
+
+Experience bolts:  Makes it cheaper.
+
+Notes:  Really powerful.  You'll probably be on the receiving end before you
+get a chance to use it, and you'll know just how devastating it is to have your
+mana base eroded out from under you (not to mention how annoying that Caw-Caw
+sound is).  When using it, try to target either an enemy leader (if he's in
+a settlement or holy fired on a Papal Magnet), or on a Castle near the fringes
+(so that a walker from here will infect many other settlements along the way).
+If you also have a chance to disrupt the land, do it--plaguing a castle and
+then using a Batholith to instantly make the settlement into a walker is really
+devastating, for example.
+    I can't emphasize how powerful it is.  Once you got it starting to spread
+(and you shouldn't need more than a couple of uses to do so), you'll notice
+that the AI is barely using any of their effects, if at all.  Just whatever you
+do, don't use Baptismal Fonts when Plague is around or vice versa!  The last
+thing you want is to get your own walkers infected.
+
+If you are ever on the receiving end of this, you need to act fast.  On any map
+where you suspect Plague, keep an eye on the minimap.  The moment one of your
+blue dots stops flashing white and starts flashing a green-gray, immediately
+center your view on it and right-click like mad around the settlement and then
+on the settlement to drown the walker.  Even if you have multiple infected
+settlements, as long as you can contain them and kill them, you must!  Losing
+a few castles and walkers is a small cost compared to having your entire mana
+base eroded.  It's worth disabling your computer assistant and turning off any
+Go To Papal Magnet or Group Up influences just to make sure you can wipe out
+your plagued walkers without any interference or further risk of spread.
+
+Experience bolts slowly reduce the cost of using Plague.  This ability is so
+strong is makes it worth it to invest in People Effects alone.  The earlier
+you can drop a Plague, the better.
+-------------------------------------------------------------------------------
+5.  Armageddon                                                         *PEO:ARM
+
+Does:  Turns all settlements and walkers into non-Helen of Troy heroes (without
+any of their special abilities) and forces them to charge into each other until
+only one side remains.  Plagued walkers and settlements disintegrate instead.
+
+Experience bolts:  No effect that I can tell.  If it makes it cheaper, it's
+either so subtle or this ability so expensive it's not noticeable.
+
+Notes:  Ends the game, pretty much.  In rare cases the enemy will use it, but
+they aren't always smart about it (sometimes they'll just do it and end up
+losing).  Heroes can still be affected by effects, which can work to your
+advantage in the rare situation an enemy calls Armageddon and you are on the
+losing end. I've eked out a win before with a few Baptismal Fonts (when I was
+behind significantly before the call to judgment).  This also means that you
+should pay attention when you use Armageddon yourself.  While the game will
+automatically raise land under the heroes so they can cross water and over some
+obstacles, it's not perfect, so you can still lose people to Earthquake,
+Swamps, and Fungus.  And, as hinted at before, this ability completely ignores
+Baptismal Fonts, so the moment you hear a splash, you should find where it's
+coming from to make sure it's not screwing you over.
+===============================================================================
+
+
+
+===============================================================================
+Vegetation Effects                                                       *VEG::
+-------------------------------------------------------------------------------
+Personally, my favorite category of interventions.  A lot of useful stuff, and
+well worth investing in with Experience Bolts.
+-------------------------------------------------------------------------------
+1.  Plant Trees                                                     *VEG:PLANTT
+
+Does:  After clicking, trees slowly rise from the ground.
+
+Experience bolts:  No idea.  May make it cheaper, may raise a few more trees,
+but in all likelihood they do nothing.
+
+Notes:  I can't actually tell if there are any direct effects from using this.
+The manual mentions 'popularity points', so my best guess is it may slightly
+increase how quickly your settlers reproduce.  Otherwise, the only direct
+effect is that you get a few more points at the end of the map.
+
+There is one very notable indirect tactic with this.  Find an area within the
+enemy territory, and keep planting trees until you have a _very_ dense
+coverage, basically almost 1 tree per tile.  Then do any fire effect.  Each
+tree will catch on fire and then catch the neighboring trees on fire, burning
+anything else on that tile (walkers or settlements).  You can wipe out the
+entire enemy with one fire effect!
+    There is one very notable caveat, and this is why I suspect having trees
+around increases reproduction rate or at least mana production rate.  On a
+more advanced map I tried planting trees everywhere, and I got a very early
+Volcano smack in my face.  I restarted the map and tried the Trees on myself,
+and not only did I not get an early Volcano in the face, but it also made it
+feel like I had more to do, earlier on.  Take with a grain of salt, but ever
+since then I always plant a few trees early on when I can.
+-------------------------------------------------------------------------------
+2.  Plant Flowers                                                   *VEG:PLANTF
+
+Does:  After clicking, a random smattering of tiles around your click point
+sprout flowers.  Flowers are like normal land, except they overwrite any other
+tile effect (damaged land, Swamp, Fungus, Earthquake, Volcano-damaged land,
+and Basalt).
+
+Experience bolts:  Either makes it slightly cheaper to use or increases the
+maximum possible number of flowers that bloom.
+
+Notes:  This alone makes Vegetation effects worth investing in.  Early on you
+might not give it much thought, but after the first Volcano hits you, you'll
+wish you had this.  As conquest maps progress, enemies also start getting
+quicker about using their interventions on you, and even with computer
+assistant on, it can be very overwhelming to constantly try and repair affected
+land by raising it and lowering it one tile.  Plus, there are many maps where
+you can't raise or lower a tile, effectively making that way to recover land
+impossible.
+    Enter this ability!  It may take a few clicks to get a decent smattering of
+usable tiles, but spamming this three or so times (for speed, tap 2 on the
+keyboard once you have Vegetation Effects selected and then click, rinse and
+repeat) will largely cure what ails you.  You don't have to get every tile,
+just enough for your walkers to resettle; your computer assistant can take over
+later.  As a plus, on any map where you are using this a lot, you'll end up
+with a high score at the end of the match, which means more experience.
+    You can also use this offensively.  Heroes, lightning, and fire are great,
+but when they destroy a settlement, they torch the entire land the settlement
+had.  Great to prevent the enemy from resettling instantly, but bad for you to
+take over.  Simply have Go To Papal Magnet influence on and use your Papal
+Magnet to have walkers follow the path of destruction a hero takes.  Once you
+march into some damaged land, switch to Settle influence and spam this a few
+times.  Your walkers will instantly find some homes, your computer assistant
+will probably take over and heal out the rest, and you've denied your enemy a
+chance to rebuild.
+    Basically - once you start getting used to having this ability around,
+maps where you don't have access to it will seem incredibly annoying and
+difficult.  Having Plant Flowers turns enemy Volcanos from a certain-to-lose
+situation to a minor annoyance.
+
+The manual also mentions 'popularity points'.  Aside from affecting your score,
+I take it to mean that by getting rid of damaged land you can produce more
+walkers and more mana.  This is the only reason why I suspect Plant Trees
+does one or the other.
+    Ignore everything else the manual says.  How flowers cluster, etc has no
+bearing on how flowers work.  Maybe at one point it used to function like
+Fungus, but now it's more like Swamps or Baptismal Fonts.
+-------------------------------------------------------------------------------
+3.  Swamps                                                             *VEG:SWA
+
+Does:  Similar to Plant Flowers, once you click, a random smattering of Swamps
+appear.  A walker who walks into a Swamp instantly drowns.  On some maps,
+"Swamps are shallow" may be enabled, which means once a Swamp consumes a walker
+it disappears.
+
+Experience Bolts:  Makes it cheaper and increases the likelihood that you get
+more swamps on a use.
+
+Notes:  It's an early staple so it might seem pretty vanilla, but this is
+actually quite a good ability.  It's a *population control* ability: using it
+will disrupt any castles the enemy had and, provided that swamps aren't
+shallow, will continue to hinder population growth because most AI aren't smart
+enough to instantly clear out the Swamps by using Plant Flowers or raising and
+lowering land.  Use it early, use it often.  Swamps will never win a game for
+you, but they will help make the road to victory go a little bit smoother.
+    If swamps are shallow, then Swamps become a bit worse than using Rain of
+Fire.  Unlike that intervention, a Swamp will never appear right underneath a
+Settlement (causing the walker inside to instantly die).  Moreover, since it
+can't do that, it doesn't have the beneficial effect of burning up all the
+settlement land.  It's still worth using if you can, though, because breaking
+up enemy Castles is still an important thing to do.
+-------------------------------------------------------------------------------
+4.  Fungus                                                             *VEG:FUN
+
+Does:  Creates a Fungus on the tile.  If there already isn't an active "Game
+of Life" simululation going on within a given range (approximately 2 screens),
+the Fungus remains as a 'spore' on the ground to give you time to plant a
+few more Fungus.  After some seconds, any spores will explode and the "Game of
+Life" simulation will begin for this area.  However, If a simulation was
+already in progress, the spore will explode immediately, in rhythm with the
+current simulation.
+    Fungus appear and disappear on tiles according to the rules of "Conway's
+Game of Life" (http://en.wikipedia.org/wiki/Conway's_Game_of_Life).  Summarized
+here, every time the spores explode, the following is checked:
+        1.  If an exploding spore has neither two nor three exploding spores
+        neighboring it, it merely explodes and dies, leaving an empty tile
+        (a result of either under or over-population).
+        2.  If an exploding spore has exactly two or three exploding spores
+        neighboring it, a new spore emerges on the same tile, ready for the
+	next cycle.
+        3.  If any tile has exactly three exploding spores next to it, a new
+        spore emerges on the tile (successful reproduction).
+The use of "exploding spore" here is pretty important.  The game does this
+check every time and only every time a Fungus spore is exploding.  If you have
+a simulation underway, it's possible to add a Fungus while everything else is
+in the middle of exploding; if you do, it'll wait until the next cycle before
+checking what it does, so you may end up placing a Fungus that's just doomed
+to die.
+    The longer any given simulation goes on, the cycle is checked at greater
+frequency, until it's basically a Fungus pandemonium.  How quickly it speeds up
+seems to be based on how many Fungus spores are created.
+
+Experience Bolts:  Makes it cheaper to place Fungus.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4a.  Special Notes/Patterns                                        *VEG:FUN:SPE
+
+Wow!  What a long description.  It's important to describe Fungus in all it's
+detail here, because it's definitely the most user- skill-intensive
+intervention you can use.  It has the potential to be a significant waste of
+mana, or it can be one of the most powerful effects in the game.  It all relies
+on whether or not you can place the initial Fungus properly.  A few examples
+will help demonstrate.  The manual recommends placing it in rows of three or
+five, let's use those as a starting point.
+    If you do a row of three (where F is fungus and . an empty tile):
+        ...
+        FFF
+        ...
+once the spores erupt, it'll cycle between these two states:
+        ...     .F.
+        FFF     .F.
+        ...     .F.
+Go back and read the rules to the Game of Life if you don't quite understand
+why it cycles betweens those two states.  If you still need help, in the
+first cycle, the left and right spores each have only one neighbor a piece,
+so they're going to die.  The center spore has exactly two neighbors, so it'll
+survive to the next cycle.  The top and bottom tiles, while empty, both have
+exactly three spore neighbors that are erupting at the same time, so in the
+next cycle a new spore will appear on them.
+    Then, in the next cycle, this is just rotation of the first cycle, so the
+same thing happens and the spores return to the position at the very beginning.
+Of course, just cycling between those two states isn't terribly useful.  It
+basically is a weak swamp in a very small area that just cost you a lot of
+mana.  So let's try looking at a row of five...
+    It starts like this:
+        .........
+        .........
+        .........
+        .........
+        ..FFFFF..
+        .........
+        .........
+        .........
+        .........
+and then, life happens:
+        .........   .........   .........   .........   .........
+        .........   .........   .........   .........   ....F....
+        .........   ....F....   ....F....   ...FFF...   ...FFF...
+        ...FFF...   ...F.F...   ...FFF...   ..F...F..   ..F.F.F..
+        ...FFF...-> ..F...F..-> ..FF.FF..-> ..F...F..-> .FFF.FFF.
+        ...FFF...   ...F.F...   ...FFF...   ..F...F..   ..F.F.F..
+        .........   ....F....   ....F....   ...FFF...   ...FFF...
+        .........   .........   .........   .........   ....F....
+        .........   .........   .........   .........   .........
+what? it's still going?
+        .........   .........
+        ....F....   ...FFF...
+        ...FFF...   .........
+        ..F.F.F..   .F.....F.
+        .FFF.FFF.-> .F.....F.
+        ..F.F.F..   .F.....F.
+        ...FFF...   .........
+        ....F....   ...FFF...
+        .........   .........
+And that last cycle, if you've been keeping up, is just four repetitions of the
+three in a row cycle above, so those will keep alternating between their two
+states.  So this is much better than the three-in-a-row, because you had Fungus
+exploding, killing any walker and destroying settlements all along the way.
+You end up with the three-in-a-row anyway (four of them!).  And, except for
+the last phase (which just cycles between the three-in-a-row), each cycle of
+the simulation contributes to the simulation running a bit faster.  You'll
+probably notice that the three-in-a-rows are cycling between their phases
+a bit faster than the simulation started.  Which means, if you add some Fungus
+to the running simulation that causes it to grow more, it'll keep getting
+faster and faster, eventually reaching a point where the cycles move so
+quickly even a Very Fast AI will have difficulty keeping up with it.
+    There are a lot of good patterns to use, some from a strategy guide that I
+used to have and need to find again, some you can look up on Game of Life
+situations, and others still you'll get just by experimenting.  But to save you
+some time, here are a few situations that come up occasionally.
+    When you have (treat the x's and y's as empty tiles, they're there to note
+locations):
+        .....
+        .x.x.
+        yFFFy
+        .x.x.
+        .....
+Do _not_ add a Fungus at either of y's, as this will result in the simulation
+dying out (you can calculate it to see why).  Do add a Fungus at one of the x's
+as this will cause the simulation to advance to a state where you can add
+another Fungus and cause some explosive growth.
+    When you have:
+        .yy.
+        yFFy
+        yFFy
+        .yy.
+Do _not_ add a Fungus at any of the y's.  The simulation will die out rapidly.
+Instead, start a new Fungus swarm elsewhere and try to connect the two, for
+hilarious results.  Or, add a Fungus at one of the corners (the .'s).  This
+will advance to another stable form; you can add another spore here and cause
+some fast growth.
+    When you have:
+        ...
+        .F.
+        FxF
+        ...
+        FxF
+        .F.
+        ...
+_Do_ add a Fungus to one of the x's.  You will get _rampant_ growth, though
+eventually it will die out.
+    Moreover, look at the icon for Fungus.  That itself is a special pattern
+known from the Game of Life situation, it basically creates a slowly moving
+"jet" that crawls in the direction the "arrow" is pointing.  Unfortunately, you
+need a _lot_ of room for this one to get ramped up, and it might not contribute
+to the simulation speeding up.
+    Lastly, this is probably the best overall starting pattern, which even has a
+name by Game of Life fans, the "F-pentomino" (also R-pentomino):
+        .....       .....
+        ...F.       .F...
+        .FFF.   or  .FFF.
+        ..F..       ..F..
+        .....       .....
+Notice how it creates a little arrow pointing down.  It'll start off doing some
+dramatic growth in that direction, but will turn back around and do dramatic,
+rampant growth in all directions.  It takes a bit of wind-up time before it
+gets huge, but is virtually immortal and will only die out if it runs into
+a lot of obstacles or the enemy judiciously raise/lowers land.  Note that you
+don't _have_ to have it pointing downwards, you can point it in whatever
+direction you want to get hit first.
+    Note that there's a basic conjecture that most starting positions for the
+Game of Life will eventually die out.  In fact, there are a few starting
+positions that result in infinite growth, but the smallest known pattern (known
+as "wedge grow") requires 26 Fungi spread out over 16,193 x 15,089 squares,
+which definitely exceeds the size of a Populous II map (and reasonable amounts
+of mana).  However, there are plenty of starting positions that are
+_effectively_ infinite.  The F-pentomino, for example, will die out into a few
+stable, non-cycling positions, but it takes around 1,100 cycles to reach that!
+If you actually manage to keep it around that long, you've probably wiped out
+every living thing on the map.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4b.  Normal Notes                                                  *VEG:FUN:NOR
+
+OK, with all that out of the way, suffice it to say that properly used, Fungus
+is immensely powerful.  On their own, the exploded spores are like Swamps,
+killing anyone who walks over them.  In special gatherings, the Fungus has
+rampant growth, eating away enemy land, settlements, and walkers in an
+increasingly frantic manner.
+    Unfortunately, there are a few caveats.  First, the AI can foil your Fungus
+very easily early on (before the spores explode or before it's picked up
+speed).  This is particularly true for Very Fast AI.  Second, you have to gauge
+your mana carefully, as the last thing you want is to run out of mana for a
+row of five so you're left with a row of four (which will die out very
+quickly).  Third, if your simulation dies out after taking out settlements,
+it doesn't have the benefit of destroying the land, so it's still easy for the
+enemy AI to repopulate it (again, true for Very Fast and Killer AI).
+Fourth, anything that's not another empty land (except damaged or with Flowers)
+acts as an obstacle for the simulation, which makes hilly or otherwise
+affected land hard (or impossible) to infect.
+    To deal with the first, you have to start Fungus later on in the match
+(which helps with the second issue).  You should also place Fungus in areas
+where the AI is not actively expanding, and if you are dealing with a very
+defensive AI, you should either place Fungus at the edges of his land to try to
+grow inward, or you should just use Swamps instead.  You could even just use
+Swamps to break up the enemy territory, to create a few "gaps" where you can
+place Fungus in a way that the enemy won't feel the need to clear it by
+raising/lowering land.  For the third issue, this can be helped by being ready
+to move in with heroes and walkers or by following through with more Fungus at
+the edges of the newly depopulated land.  Also try to use Fungus patterns that
+result in stable endings (ones that don't die out).  The benefit of the latter
+is that so long as the simulation hasn't completely died out, it remembers how
+fast it was going, so you can start a new, really fast spawning Fungus again
+when you need.
+    Even in situations where you can't really use Fungus (super hilly, or lots
+of islands), the one advantage that Fungus has over most interventions is that
+IT APPEARS AT THE SPOT YOU CLICKED.  Might not sound like much, but when you
+need to get rid of the last few settlements and don't have Armageddon, placing
+a Fungus is one way to do it.
+    There is also the danger that you might be tempted to just watch what
+happens to your Fungus, when you should be paying attention elsewhere.  Figure
+out what works reasonably well on the easier maps, then on later maps set it
+and forget it.  Check back up on it in a while, to see if it's still around
+and can be jump started with a few more.
+
+So, to summarize a really long section:  once you get the hang of using
+Fungus, you'll find that it's a potentially really powerful intervention.
+It also justifies investing in Vegetation Effects, since initially it's so
+expensive that it's hard to lay more than three down.  Bringing the cost
+down dramatically increases its effectiveness.
+-------------------------------------------------------------------------------
+5. Adonis
+
+Does:  Turns your leader into Adonis.  Adonis has the same strength as the
+leader used to create him.  Every time Adonis is victorious in battle, he
+divides into two Adonis's, each with half the strength that the original had.
+Adonis is completely immune to Fungi and Swamps.
+
+Experience Bolts:  Makes him move faster.  Also may make this intervention
+cheaper (that's what it feels like anyway).
+
+Notes:  Adonis and Hercules are the two Tier 5 heroes, and Adonis is arguably
+the better general-purpose one.  You'll need to charge up your leader with
+Go To Papal Magnet influence; because he divides every time, you don't want to
+have a hero strong enough to take on one fight and then divide into two heroes
+two weak to win a single battle on their own.  Because of this, while you could
+get away with doing less than a 4th flag in terms of strength for other heroes
+(maybe), I recommend one full notch on the 4th flag with more than a few on the
+3rd flag, and if possible two full notches.
+    With good starting strength, Adonis will swarm the enemy land.  Dividing in
+two means he can be in exponentially more battles over time, and while
+eventually there'll be like 32 Adonises with piddling health running around,
+in the process he'll have wrecked so much.  Be prepared to sweep in with your
+own walkers to claim enemy land.
+    Being immune to Swamps and Fungi is great, as those are two abilities you
+might love to spam to soften the enemy, and Adonis will gleefully run over them
+without any concern.
+    Not that I've ever seen the AI use City Walls, but it's important to note
+that walls provide an excellent defense against Adonis.  After a few fights,
+all the Adonises might be too weak to bypass a city wall, even though if they
+had stayed as one hero they would've been able to waltz straight through.
+    WARNING - due to the *population limit* in Populous II, when you have a
+large population (approaching 50% of the stadium), Adonis will stop splitting
+after every battle.  At this point, Adonis is just much worse than most other
+heroes.
+===============================================================================
+
+
+
+===============================================================================
+Earth Effects                                                            *EAR::
+-------------------------------------------------------------------------------
+Some highly specialized interventions, but two really standout ones, one that
+needs to be used aggressively when you can.
+-------------------------------------------------------------------------------
+1.  Build Road                                                      *EAR:BUILDR
+
+Does:  Turns the target tile into a road.  Walkers prefer to walk on roads, and
+when they do so they move faster (but not while under Go To Papal Magnet
+influence).  Road can be overwritten by any other intervention except for
+Fungus.
+
+Experience Bolts:  Walkers move faster on roads.
+
+Notes:  Rarely worth the effort to extensively build a road network, though
+building a few long straight ones from the back of your territory to the front
+lines can be very helpful.  Be careful, though, intersections and turns are
+treated as "endings" in the road, the walker may just walk off the road at a
+turn and wander around instead of continuing on.
+    Also unfortunately, building a road does not increase Walker speeds for
+when they are on Go To Papal Magnet influence.  Possibly for game balance
+reasons, since I can imagine supercharging a leader very quickly might be
+unreasonably powerful.
+-------------------------------------------------------------------------------
+2.  Build City Wall                                                 *EAR:BUILDC
+
+Does:  Builds a section of wall on the tile, which must be an empty, flat land
+tile either uncontrolled or controlled by you.  The tile can no longer be
+raised or lowered or affected by any effect except Earthquake.  Future
+sections of city wall must be built adjacent to a pre-existing one.  There is
+also a limited number of city walls you can build.  Walls prevent enemies from
+passing through _except_ under exceptional strength.
+
+Experience bolts:  May make it cheaper or require a stronger walker to pass,
+but I can't tell.
+
+Notes:  Very, very specialized use.  The problem is that, like other map
+objects (trees, rocks), there are a limited number of city walls you can use,
+so you can't really go off building a defensive grid of walls crisscrossing
+your territory (which would be awesome if you could).
+    What it's really great for is walling in the enemy Papal Magnet if the
+enemy has gone leaderless for some reason (or started off leaderless).  The AI
+will try desperately to influence Go To Papal Magnet, and so long as you keep
+them from gathering too much around the wall (via interventions or whatnot),
+they'll never breach.  All the while you can gleefully steal settlement land,
+as the enemy's walkers are too busy trying to get to the Papal Magnet to
+resettle.  In fact, in maps where sprogging is disabled for you (but not for
+the AI), victory hinges critically on your ability to send out a walker to
+the Papal Magnets in the center of the map, settle a 3x3 land immediately under
+them, and then filling that 3x3 land in with walls.
+    There are also a few specific conquests maps where you're incredibly
+outnumbered.  Defensively walling in a good section of your territory will make
+sure you won't get overwhelmed by an enemy leader marching to a Papal Magnet
+placed throughout your land.  Even if you are limited in how many walls you can
+lay down, the limit is high enough that you can crisscross the map once and
+have some change left over for a few extra sections.  Plus, all the while
+you've protected yourself from maurauding leaders, your walls also make sure
+you don't get hit by too many heroes.  All the while you can slowly whittle
+away their land.
+
+There is one, really huge, terrible caveat though.  An earthquake will destroy
+a section of city wall.  If your Leader walks through this one section, they
+will die and leave the Papal Magnet over a tile that cannot be raised or
+lowered. If you don't have Plant Flowers or Earthquake (to destroy another
+section of wall) you have permanently lost the ability to have a Leader for the
+rest of the match.  This is generally a game over in later maps.  Of course,
+the converse is true, so if you can somehow get the enemy Leader to die on an
+earthquake tile between walls, pray and hope that the AI just leaves Go To
+Papal Magnet influence on, and watch as hordes of walkers march to their doom.
+-------------------------------------------------------------------------------
+3.  Earthquake                                                         *EAR:EAR
+
+Does:  Upon selection, a rotating cursor appears.  When used, it will start an
+earthquake in that direction, which moves across all land in random directions
+(it will stop when it hits water).  After the earthquake is done, the affected
+tiles will open up revealing the magma of the earth underneath; this is mainly
+a cosmetic difference as whether or not the earthquake has finished, the tiles
+will still kill anyone who walks on top of them.
+
+Experience bolts:  Makes the earthquake last longer (thus travel further).
+
+Notes:  Really great *population control*.  It's way less precise than
+Swamps--and that's saying something--since the "aiming" is more of a polite
+suggestion.  In fact, I've had it move only one tile in my chosen direction
+before completely turning around.  But, unlike Swamps, the tile you click on is
+always affected, which means at least one automatic death for you.  Plus,
+unlike Swamps, even against a Very Fast and Killer AI, there's nothing they
+can do at first; if they try to raise or lower land (or Plant Flowers) during
+the actual earthquake, the effect is lost and the earthquake persists.  In
+addition, there's no rule that says "shallow Earthquake tiles" for example, so
+Earthquake is always good for keeping walkers going to their demise.
+    Investing in Earth Effects yields great benefits here.  With a lot of
+bolts, the Earthquake can easily crisscross the entire map several times.
+-------------------------------------------------------------------------------
+4.  Batholith                                                          *EAR:BAT
+
+Does:  (You have to click and hold for anything to happen.)  As long as you
+hold down the mouse button, land keeps rising and rocks keep emerging (as long
+as you haven't hit the map limit).
+
+Experience bolts:  Makes it a bit cheaper to use.
+
+Notes:  Good for disrupting enemy Castles, both in the short term (the rising
+land ignores any rules against raising enemy land) and in the long term, with
+all the rocks permanently disrupting the land.  This is especially since the AI
+never seems to bother with sinking rocks.
+    It doesn't do much else.  If you have a lot of experience bolts invested
+here, it might be worth using on maps where you can't raise land, just to
+create more settle-able territory.
+    Also note that there's a finite number of rocks allowed on a map.  After
+that, Batholith just raises the land.  Still disrupts enemy settlements, but
+not as permanently.
+    In general, it's very cost efficient to use this, though on later maps
+you might want to use an ability that packs more punch (like Earthquake).
+-------------------------------------------------------------------------------
+5.  Hercules (aka Heracles)                                            *EAR:HER
+
+Does:  Turns your leader into Hercules.  Hercules has twice the same strength
+as the leader used to create him.  Hercules is completely immune to Earthquake.
+
+Experience bolts:  Increases movement speed.  Probably makes him cheaper, too.
+
+Notes:  The other Tier 5 hero, in addition to Adonis.  Getting twice the
+strength is pretty amazing.  This means even a fast 3rd-flag hero will be
+formidable.  And a hero with at least 4 flags will be virtually untouchable.
+Unfortunately, when you have the choice between Adonis and Hercules, unless
+you've been investing a lot in Earth Effects, Hercules is good only if you
+can't spare the time to build up a powerful Leader or there are lots of
+Earthquake around.
+===============================================================================
+
+
+
+===============================================================================
+5.  Fire Effects                                                         *FIR::
+-------------------------------------------------------------------------------
+Really powerful stuff here.  When in doubt, you can't go wrong putting
+experience bolts here.
+-------------------------------------------------------------------------------
+5a. Fire Column                                                        *FIR:FIR
+
+Does:  At some random point near or on the tile you clicked, a column of fire
+erupts.  It wanders randomly, destroying land, though it tends to go uphill.
+
+Experience bolts:  Increases duration.
+
+Notes:  Meh.  Only remotely useful when you've got nothing else, otherwise it's
+a waste of mana.  Fortunately, the other interventions make up for this.
+-------------------------------------------------------------------------------
+5b. Rain of Fire                                                       *FIR:RAI
+
+Does:  Random drops of fire fall from the sky, landing on random tiles near the
+click point.
+
+Experience bolts:  Increases the potential for more drops of fire.
+
+Notes:  Really good disruption.  While the effects don't stick around like
+Swamps or Earthquake, any buildings that get hit burn up their land, making
+them unsuitable for settling unless a very proactive Very Fast and Killer
+AI cleans them up.  Also, unlike Swamps, Rain of Fire can actually destroy
+existing settlements completely.  I vaguely suspect that Rain of Fire is
+weighted to hit a few settlements directly, as the number of settlements I've
+directly hit seem to be disproportionate compared to what random chance would
+predict.
+    If you have the mana, I highly recommend spamming this (press 2 and then
+click) throughout your opponent's territory.  It'll seriously put him back in
+terms of mana development.
+-------------------------------------------------------------------------------
+3.  Achilles                                                           *FIR:ACH
+
+Does:  Turns your leader into Achilles.  Achilles has the same strength
+as the leader used to create him.  Achilles is immune to all Fire Effects.
+
+Experience Bolts:  Increases movement speed.  Also may make him cheaper to
+use.
+
+Notes:  The other Tier 3 hero other than Perseus.  Most of the time, Achilles
+isn't worth the mana--Perseus is overall a better choice since the ever-common
+Swamps and Earthquake won't knock him down.  However, the one time where you
+should definitely use Achilles is when either you or the enemy is busy spamming
+all sorts of Fire Effects, especially Volcano.  No other hero can survive such
+an onslaught, and Perseus can't navigate around these effects because for the
+most part they come out of nowhere and aren't static.
+-------------------------------------------------------------------------------
+4.  Volcano                                                            *FIR:VOL
+
+Does:  Causes a massive upwelling of damaged land, whose top then turns into
+an open pit of magma.  As long this magma is open, the Volcano will spout
+Rain of Fire, Fire Column, and in 1-4 random directions, a fast stream of
+Lava will occur.  The Lava will burn everything in its path, and if it hits
+water, it will keep going as Basalt.
+
+Experience Bolts:  No idea.  May make the individual fire effects more
+powerful.
+
+Notes:  Amazing.  The first time this happens to you, it'll probably be a
+deeply traumatic experience.  The moment you can start laying down Volcanos,
+though, can help turn the tide of battle rapidly.
+    I can't understate how powerful this is.  The massive upwelling of
+damaged land alone can be used to destroy all sorts of Castles and, since the
+enemy never seems to use Plant Flowers, permanently bar them from settling
+that area again.  The Rain of Fire and Fire Column pretty much guarantees
+that most of the walkers you've displaced are going to die, and ensure that
+as long as the enemy doesn't cap the magma at the top (or effectively cap
+it by lowering the land at the base of the Volcano) anyone near the Volcano
+is going to keep dying.  The Lava flow is bit hit and miss, but if you're
+lucky, can wreck up more of the enemy land in a manner of an unstoppable
+Earthquake.  As long as you hit the right spot, placing a Volcano begins the
+beginning of the end for your opponent--even if you're quite behind.
+    On the other hand, you have to learn quickly how to deal with getting
+hit by a Volcano.  Some conquest maps are incredibly frantic with the
+enemy spamming Volcano left and right.  As soon as you hear the telltale
+sound (and see gigantic block of gray appear on your map), center the view
+on it and immediately start lowering land around the base.  This is because
+in most conquest maps, you can't raise or lower land unless one of your
+settlements is in view, so you shouldn't rely on being able to directly
+cap the magma at the top.  Instead, lowering the land at the base will
+disrupt the magma and effectively close it.  Don't immediately lower
+everything; keep a small hill up so that all those Fire Columns have a place
+to go.  Once the worst is over, lower as much land as you can and then spam
+Plant Flowers if you've got it.  Otherwise, start expanding aggressively
+elsewhere to make up for the land you just lost.  With enough practice,
+enemy Volcanos will become more of a nuisance than a game-breaking threat.
+    Now, while Volcano is super powerful, it's so powerful you might not
+actually need to spend that many experience bolts in Fire Effects.  The normal
+effect is already intense, and the most you get out of it comes in the first
+few seconds, when all the Rain of Fire and Fire Columns wipe out whatever
+what was already there.
+-------------------------------------------------------------------------------
+5.  Divine Fire                                                        *FIR:DIV
+
+Does:  Starting at your Leader, eight giant pillars of fire appear on the tiles
+surrounding him or her.  Then they move in each of the eight until they hit
+the end of the map, burning everything along the way
+
+Experience Bolts:  May make it cheaper, probably does nothing.
+
+Notes:  A very rare ability to use, especially since the super nintendo version
+of this game didn't have it, so obviously the designers didn't think much of
+it.  The gouts of fire are most effective to everything within one screen of
+the Leader; otherwise they get so far apart that they don't collectively do
+much, and the fact that nothing stops them (even water) is more of a mixed
+blessing.  Plus, if you want your Leader to be at any reasonable location,
+you've got Go To Papal Magnet influence enabled, which means you're also going
+to kill a lot of your own walkers in the process, making this ability
+potentially _really_ expensive to use.
+    That being said, this intervention does fulfill one very good niche.  It's
+the only intervention that benefits from a heavily aggressive strategy of
+using Go To Papal Magnet.  Since your Leader remains untouched by this,
+activating this to clear out a bunch of land and then immediately switching
+to Settle will enable you to quickly grab a a massive foothold on your
+enemy land.
+===============================================================================
+
+
+
+===============================================================================
+Air Effects                                                              *AIR::
+-------------------------------------------------------------------------------
+Mixed-quality, but diverse set of interventions, though one of them is probably
+the most important intervention in the game.  Decent secondary choice for
+spending experience bolts.
+-------------------------------------------------------------------------------
+1.  Lightning Bolt                                                     *AIR:LIG
+
+Does:  On or near two random tiles you select (they may be the same tile),
+a bolt of lightning strikes, damaging the land and harming walkers,
+settlements, or heroes.  You can hold down the mouse button to continuously
+strike, though eventually it'll stop on its own.  Settlements will eventually
+disappear when they've been reduced to a significant negative population,
+though walkers will remain zapped and won't die until you stop Lightning Bolt.
+
+Experience Bolts:  Unclear; may make it more likely to strike the tile you
+click on.
+
+Notes:  Probably one of the most important interventions in the game.  They're
+the main way to deal with enemy heroes (who otherwise can wreck your land) and
+constant harassment of the enemy Leader is a good source of *population
+control*.  This is because whenever the Leader dies, the AI always enables
+Go To Papal Magnet influence to crown a new Leader.  Despite what the game
+manual says, Leaders are _not_ immune while touching a magnet, so you can
+significantly hinder enemy population growth by zapping the Papal Magnet with
+Lightning Bolt and killing every walker that tries to become a leader.  While
+having your computer assistant on, you'll be able to keep expanding while
+the AI is busy just trying to crown a new Leader, sending any excess
+population to their doom.
+    I can't emphasize how great this is for knocking out enemy heroes.  The
+moment you hear the telltale fanfare, you should immediately scan the map
+for the hero that just got created.  You'll be able to sort of tell where
+the hero was spawned, since a lot of enemy walkers will be walking in the
+direction of the magnet to crown a new Leader.  As soon as you find him
+(or her), hopefully it's not Adonis or Odysseus, start spamming Lightning
+Bolt until you get a pair of bolts that hit the hero.  As soon as they
+connect, hold down your mouse button and keep holding down until Lightning
+Bolt ends on its own.  This will most likely kill the hero, leaving your
+land relatively unscarred and wasting a lot of the opponent's mana.
+-------------------------------------------------------------------------------
+2.  Whirlwind                                                          *AIR:WHI
+
+Does:  Creates a whirlwind, which moves in random directions and picks up any
+walkers or heroes it comes across, reducing their technology level to Fist.  If
+a whirlwind is on a water tile, and there is a 2x2 open grid of water that the
+whirlwind is touching, a Whirlpool is created.
+
+Experience Bolts:  Lasts longer.
+
+Notes:  Most of the time not really worth the effort.  It is good to toss on
+enemy heroes when Lightning Bolt isn't around, because at least it'll make them
+easier to fight.  This does have a nice niche effect in that you can use it
+as a slightly more expensive and unpredictable Whirlpool generator, but that's
+already a pretty niche effect.  Otherwise, it's too unpredictable to be really
+good disruption; plus, unlike Fire Column (which itself isn't that great), it
+doesn't damage the land it travels on.
+-------------------------------------------------------------------------------
+3.  Storm                                                              *AIR:STO
+
+Does:  Creates a bunch of storm clouds centered around an area slightly below
+where you clicked.  Over time, these storm clouds zap random spots with
+lightning, damaging the land and destroying walkers and settlements.
+
+Experience Bolts:  Lasts longer, denser/larger clouds.
+
+Notes:  A bit expensive, but a really good destruction effect.  I wouldn't
+really call it population control since it generally destroys whatever is under
+it instead of containing a wide area, but it can take care of walkers who keep
+haplessly trying to cross the area.  Blanketing the enemy lands with this,
+however, is really effective, probably more effective than anything Swamp,
+Earthquake, or Rain of Fire can do, though the mana price is pretty steep.
+-------------------------------------------------------------------------------
+4.  Odysseus (aka Ulysses)                                             *AIR:ODY
+
+Does:  Turns your leader into Odysseus.  Odysseus has the same strength
+as the leader used to create him.  He also moves twice as fast as a normal
+hero.  Odysseus is immune to Lightning of all kinds and Whirlwind.
+
+Experience Bolts:  Increases movement speed (insane!!), may make him cheaper.
+
+Notes:  Not quite as good as the other Tier 4 hero Helen of Troy, but
+definitely worlds ahead anything that Tier 3 heroes can achieve.  Moving that
+quickly will allow Odysseus to quickly ravage the enemy land and, as a plus,
+he'll take less damage due to exposure.  So he's kind of a weaker version of
+Adonis in his ability to sweep across the land.
+    The flip side is that when the enemy uses Odysseus, there's very little
+recourse you have to try and stop him, since he's immune to any attempt at
+zapping via Lightning Bolt.  You can try and spam Swamp or Baptismal Fonts, but
+in all likelihood you have to grit your teeth and hope you can expand your
+territory to make up for the devastation.
+-------------------------------------------------------------------------------
+5.  Hurricane                                                          *AIR:HUR
+
+Does:  Creates an icon with a rotating arrow.  When you click, imagine a line
+going from one end of the map to the other, going through where you clicked
+and perpendicular to the direction you chose.  Everything past that line in the
+direction you chose will be hit by a strong gale, which constantly blows
+walkers, settlements, and heroes in that direction.
+
+Experience Bolts:  Unclear, may make it cheaper or last longer.
+
+Notes:  Very, very specialized use.  You also probably have to do a lot of prep
+work in advance.  Works really well if the land you're about to blow everyone
+on is damaged or has other negative effects (so that settlements are disrupted
+and can't be resettled, and so that walkers and heroes die).  If you do it
+right, you seriously affect your enemy's mana (since many of his settlements go
+away) and you hopefully take out some walkers as well.  If you do it wrong,
+you effectively sprog his entire walker population and free up a lot of his
+land for more settling.  Eek.  In fact, since the AI isn't smart enough to do
+much prep work (generally) when they use Hurricane on you, so long as you make
+sure your walkers don't all fall into the water, you basically get a free shot
+at expansion.
+===============================================================================
+
+
+
+===============================================================================
+Water Effects                                                              *WAT
+-------------------------------------------------------------------------------
+More specialized and situational effects here.  Can be potentially very good
+source of investment for experience bolts, but relies heavily on knowing how
+to use the interventions and having the right interventions available in one
+map.
+-------------------------------------------------------------------------------
+1.  Basalt                                                             *WAT:BAS
+
+Does:  Creates an icon with a rotating arrow.  When you click on open water,
+it will slowly create Basalt, which is like Volcano-damaged land, except
+with a width of 1.  Basalt (and Volcano-damaged land) acts as an
+impenetrable shoreline for Tidal Waves.  Basalt stops when it hits land.
+
+Experience Bolts:  Lasts longer (creating more Basalt).  May make it cheaper,
+too.
+
+Notes:  Probably the most specialized intervention in the game.  There are
+exactly two uses: on certain maps where you can't raise/lower ground but
+you can't access a certain island or chunk of land because of the game's iffy
+pathfinding or because it's a full open tile of water away.  The other use is
+to prepare for a Tidal Wave much later in the map.
+-------------------------------------------------------------------------------
+2.  Whirlpool                                                          *WAT:WHI
+
+Does:  If you click on a tile that is the top point of a 2x2 grid of open
+water, a Whirlpool appears.  A Whirlpool travels randomly and turns any tiles
+it touches into water, except for Basalt or Volcano-damaged Land, which stops
+the Whirlpool.  A walker that falls into a whirlpool is generally a goner.
+
+Experience Bolts:  Lasts longer and is cheaper to use.
+
+Notes:  On its own it's a weak form of *population control*.  Against slower
+AI (medium, docile, sleepy, etc) a few of these can disrupt Castles and stall
+development.  Against faster AI, you need to invest experience bolts into this
+a lot, so that it becomes cheaper to use and more effective so that you can
+keep up with the AI's ability to recover.  Aggressive spamming can eat
+into land and drown walkers (especially leaders).  The manual has a good
+suggestion - if you can find a 2x2 open grid of water somewhere in the middle
+of the enemy land (whether or not you create it manually), putting a Whirlpool
+here (and then creating a few more as more 2x2 open grids pop up) can
+really wreck havoc.
+    If you're using this as population control, be sure to use the Whirlpools
+so that you're forcing the AI to move towards your guys, or at least doing a
+pincer attack.  Otherwise, you're just freely sprogging your opponent's
+settlements.  This way, you're either forcing him onto less land (potential
+for more drownings or death by exposure) or forcing him onto land that you
+own (potential for conflict).
+    A more useful application of Whirlpool is as disruptive support for
+several other abilities.  A Whirlwind on a Leader may bring him out somewhere
+in the middle of the ocean.  A Hurricane may be blowing walkers to a shore,
+but nothing else much.  A Tidal Wave may be unleashed against a Very Fast AI
+where the water isn't fatal.  In all these cases, chasing them with a few
+Whirlpools dramatically increase the effectiveness of those interventions.
+    Despite (or because of) all this, Whirlpools are pretty underpowered.
+It's not necessarily worth going out of your way to use your mana on them, but
+it might be worth spending experience bolts here just because the maps where
+you have to rely on them will be less painful.
+-------------------------------------------------------------------------------
+3.  Baptismal Fonts                                                    *WAT:BAS
+
+Does:  Similar to Swamps, creates a random smattering of Baptismal Fonts around
+where you clicked.  If a walker or hero falls into one of these, they change
+into the opposing side.
+
+Experience Bolts:  Doesn't look like they do anything.  May have a higher
+potential for more Baptismal Fonts, but if so it's really subtle.
+
+Notes:  Either really stupid or handy; generally pretty stupid.  The biggest
+problem is that the AI for walkers around these is inane.  Frequently one
+walker will be walking in one direction, fall into the Font, pop out on
+the other side as the opposing side, but then want to go in the other
+direction, which means they fall back in, etc.  Pretty much the only way to
+really get any use is to put these at the edges of the enemy lands and have
+Settle or Battle influence enabled OR to put it somewhere in the midst of the
+enemy lands and have Go To Papal Magnet enabled.  Those are the only ways
+most likely to compensate for how inane the AI can be.  Other than that,
+Baptismal Fonts are pretty weak disruptions.
+    There is one particularly devastating case to make for these.  If you can
+Wall off an enemy Papal Magnet and put some Baptismal Fonts around it,
+you can basically fuel an unlimited army for yourself, as the AI will keep
+sending more walkers via Go To Papal Magnet all the while you steal them
+and use them to kill or settle.
+-------------------------------------------------------------------------------
+4.  Helen of Troy                                                      *WAT:HEL
+
+Does:  Turns your leader into Helen of Troy.  Helen of Troy has the same
+strength as the leader used to create her.  Instead of fighting, she'll wander
+around and 'charm' walkers and settlements into following her.  She'll keep
+wandering around, slowly killing those following her due to exposure, though
+every once and a while she'll stand still and fight them all at once (you'll
+know this happens when you keep hearing the harp sound over and over).
+    Note that unlike many other heroes, Helen of Troy is _not_ immune to any
+intervention, nor does she try to avoid them like Perseus.  The manual says
+that she attempts to dodge your efforts to Lightning Bolt her and the like,
+though in truth she doesn't seem that much harder to kill than most other
+heroes.
+
+Experience Bolts:  Makes her move faster.  Also probably makes her cheaper.
+
+Notes:  Easily the best Tier 4 Hero and quite possibly the best hero in the
+game.  Because she doesn't actually do any fighting at first, you can easily
+create a weak-ass Hero and send her off on her way.  She'll still take out
+Castles left and right.  It takes her a long time to actually kill anyone
+though, since they'll just die off by exposure.  As I mentioned, though,
+after a while of wandering, she'll stand around and then take them all on
+one at a time.
+    If at any point Helen of Troy dies prematurely, whether by exposure,
+an intervention, or during one of those sequences where she fights everyone,
+all the walkers following her are "freed."  In truth, they may still be dazed
+so they might just wander back and forth without doing anything.  Also, if
+she dies from falling into something (like a Swamp or Earthquake), all of
+the walkers following her will gleefully follow her in, which is important
+to know if you're trying to kill an enemy Helen of Troy.
+    So what, might you ask, is so great about Helen of Troy if she doesn't
+actually kill any of her targets?  Well, simply put, she is the most
+effective disruptive force you can unleash.  Because she delays fighting the
+walkers for a while, you can send her off really early on without worrying
+about her dying after one or two battles.  Many walkers will die off anyway
+due to exposure, and while she's busily gleefully charming away settlements,
+you can bring your own walkers in to take over the land.  If she ends up
+expiring without killing all the walkers following her, by then it's too late
+for the AI to really respond--suddenly he has a bunch of walkers that have no
+place to go home.  They'll still probably die of exposure or might end up
+having to fight your walkers in an extremely weakened state.  Plus, I'm fairly
+certain that so long as the walkers are following Helen of Troy, they don't
+contribute to mana (though they still contribute to population).
+    However, these same factors mean that if the enemy creates a Helen of Troy,
+you must seek her out with extreme prejudice.  Do everything you can to stop
+her, even if it means killing some of your own walkers in the process.
+A battle in which Helen of Troy has free reign to run around your land is a
+battle that's not going to go well for you.
+
+It's important to note that Helen of Troy is effectively the most efficient
+hero in the game.  Even if you somehow create a Fist-technology Helen, she'll
+still go toe-to-toe with Sword-technology walkers, since exposure hits everyone
+to the same degree.  Also, while Hercules gets twice the strength of the leader
+used to create him, if Helen constantly has at least three walkers following
+her, she effectively has three times the strength (since every loss of strength
+for her translates into the loss of strength of three walkers).  Which means
+that if you have more than ten (which is fairly easy), Helen has effectively
+ten times her stated strength.  Though this is hurt by the fact that when Helen
+fights everyone at once, she goes through them one at a time, which puts her
+back to a 1:1 ratio with her strength and effective strength.
+
+Do note that Helen of Troy has no special protections, even from Water Effects.
+She'll still drown from Whirlpools and, more dangerously, she'll happily wander
+in and be converted by Baptismal Fonts (along with any walkers following her).
+You can try and exploit this by converting your own Helen of Troy and all enemy
+walkers following her and then killing Helen, but that seems like an awful
+lot of finesse to do something that would've better if you had just left her
+roaming.
+    NOTE: A reader has let me know that if you toss a Lightning Bolt straight
+in her path (but miss), she'll walk around it instead of into it.
+-------------------------------------------------------------------------------
+5.  Tidal Wave                                                         *WAT:TID
+
+Does:  If you click on a spot of open water, a gigantic Tidal Wave begins.  A
+Tidal Wave consists of four waves, one in each main direction:  top-left, top-
+right, bottom-right, and bottom-left.  They start small but then as they move
+outwards, they keep expanding in opposing directions (so the wave heading top
+left will expand to the top-right and bottom-left), at a speed of about half
+a screen-size per tile of movement (so very quickly), stopping expansion only
+when it hits a Basalt, any land tile, or another wave.  Even if expansion is
+stopped, if the wave gets to a point where it can expand further, it will.
+    In the direction that the wave is traveling, the wave will destroy all land
+it touches.  A very high chunk of land (I estimate at least four levels high)
+may be able able to prevent a chunk of the wave from passing.  The longer a
+wave has had time to travel, the less likely that a wave can be stopped by a
+high hill. However, if such a hill would be surrounded on two directions by the
+same wave, it'll still be destroyed.  Thus, giving a wave more time to travel
+(and thus expand) effectively makes it much harder to stop.  Basalt or
+Volcano-damaged land acts as a high hill, but similarly, if surrounded on both
+directions by a wave, won't actually stop the wave, but the Basalt or the layer
+of Volcano-damage will still be on top of the water as the wave passes.  Again,
+if a wave is partially stopped but at a later point on its journey can expand
+again, it will.
+    Finally, of the four waves, the ones heading to the top-right and bottom-
+left go "first," which means they expand quickly to the entire length of the
+map.  The ones heading to the top-left and bottom-right go "second," which
+means that they expand only to the extent that the "first" waves have
+travelled so far.  In practice, this means that the waves heading to the
+top-right and bottom-left are "weaker" since their expansion is much slower.
+However, if the either the top-right and bottom-left waves are completely
+stopped, then the "second" waves will resume normal expansion speed.
+
+Experience Bolts:  Makes it cheaper to use.
+
+Notes:  Most of the time, it's a terrible intervention to use.  In fact,
+it only seems to exist just to give an aggressive AI something to mess up your
+day.  The reason why it's so terrible is because even a Sleepy AI will be
+able to quickly give all his settlers a single chunk of land once the wave
+sweeps past.  While you, even with a computer assist, will be scrambling
+to try and save all your settlers.  Plus, while there will be common maps
+that indicate "Water is fatal," keep in mind that the same set of rules
+do _not_ necessarily apply to the AI.  It's a good idea to open game
+options, then toggle "For good/bad" to see if water is fatal to the AI.  If
+the water isn't fatal, you can still try to follow up with Whirlpools,
+but even then the combination of the two interventions is not terribly
+common.  Plus, even when all the stars line up, you need to do a _lot_
+of advance preparation so you aren't wiping our your own settlements.  If
+you can't build on high land easily (and it's so mana intensive to keep
+raising land up three or four levels that it's hardly worth it), then use
+Basalt.  In fact, Basalt seems to be made for this ability.  It's cheap, with
+a lot of experience bolts invested it can make a lot of tiles with one use,
+but you need to do it very early on before land has expanded too much and
+taken up open water.
+    You need to learn very quickly how exactly Tidal Wave works.  I've tried
+to describe it in detail, but even then you'll probably need to experiment a
+bit.  That's the only way you'll be able to get a hand on just how you can use
+Basalt, high hills, and, yes, Volcanos to try and control where the Tidal Wave
+goes.  Once you've figured out how to place it, though, on non-fatal water
+maps, with a decent population size, some experience bolts and many either
+Whirlwinds or Whirlpools, you can make sure that your opponent can never have
+a settlement ever again.  On fatal water maps, however, you could wipe out
+a huge chunk of your enemy population with one well-aimed attack.
+Unfortunately, mess up ever so slightly (such as having a single tile open in
+a Basalt wall) and you can wipe out everything you've built up.  Expanding
+waves are a relentless force, and once they slip past your defenses, there's
+nothing much more you can do to stop them.
+===============================================================================
+
+
+
+===============================================================================
+Appendix                                                                 *APP::
+-------------------------------------------------------------------------------
+History                                                                *APP:HIS
+
+2013y.08m.08d - Version .91 completed (minor)
+    Changing Other Guides to All Works and updating.
+
+2011y.12m.02d - Version .9 completed
+    Added note about getting Populous II legitimately from Good Old Games.
+    Added missing note about high-strength bug.
+    Added note about computer assistant not being great for non-DOS platforms.
+    Added BAS:SCO about scoring.
+    Removed "Rating" from PEO::, since those were from an early (pre-release)
+        version of this guide.
+    "Basics" has become "Basics & Bugs".
+    Added extra note about pathfinding issues in BAS:PAT.
+    Added section BAS:MIN on minor gods.
+    Updating APP:OTH section with BG guide.
+    Adding note that Helen of Troy avoids Lightning.
+
+2011y.11m.09d - Version .7 completed
+    Still not done, but decided to get this out the door so that it feels like
+        I accomplished something.
+
+-------------------------------------------------------------------------------
+All Works                                                              *APP:ALL
+
+1999 Mode Guide (Bioshock Infinite)
+Clash in the Clouds Guide (Bioshock Infinite:  Clash in the Clouds DLC)
+Heart of Fury Guide (Icewind Dale 2)
+Party Creation Guide (Baldur's Gate)
+Party Creation Guide (Baldur's Gate:  Enhanced Edition)
+Populous II Guide (Populous II)
+Thief Guide (Baldur's Gate 2)
+Ultimate Analysis (System Shock 2)
+Ultimate Oblivion FAQ (The Elder Scrolls IV: Oblivion)
+===============================================================================
+
+
+
+===============================================================================
+The Stinger
+-------------------------------------------------------------------------------
+"I knew I was an _unusual child...
+    that _divine_ blood coursed through my veins!
+
+But I also knew that Zeus would never recognise me - never let me into the
+pantheon...
+    ...unless I survived the trials of the OLYMPIAN GODS!"
+
+            - Opening Comic
+===============================================================================
