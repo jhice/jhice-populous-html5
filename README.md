@@ -1,5 +1,7 @@
 # Populous HTML5
 
+[A blog article](https://jcguinez.fr/fr/99-mechanics/mecaniques-de-jeu/populous-terrain/) is linked to this source code (in French for now !)
+
 ## English
 
 Here's an attempt to recreate the map system of Populous (Bullfrog 1989).
@@ -21,3 +23,5 @@ Technos
 - PixiJS
 
 Le code est basé sur l'architecture _spaghetti 2.0_.
+
+[Lire l'article de blog](https://jcguinez.fr/fr/99-mechanics/mecaniques-de-jeu/populous-terrain/) qui est lié à ce code source.
