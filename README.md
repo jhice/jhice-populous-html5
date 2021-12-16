@@ -1,5 +1,7 @@
 # Populous HTML5
 
+![](./readme/3d-iso.png)
+
 [A blog article](https://jcguinez.fr/fr/99-mechanics/mecaniques-de-jeu/populous-terrain/) is linked to this source code (in French for now !)
 
 ## English
