@@ -15,7 +15,7 @@ The code is based on _spaghetti 2.0_ architecture.
 
 ## French
 
-Ceci est une tentative (en bonne voie !) de recréer dans un premier temps le système de carte de Populous (Bullfrog 1989).
+Ceci est une tentative de recréer dans un premier temps le système de carte de Populous (Bullfrog 1989).
 
 Technos
 
