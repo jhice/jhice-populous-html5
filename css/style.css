@@ -18,3 +18,9 @@ body {
     margin: 0.5rem;
     position: absolute;
 }
+
+.buttons span {
+    color: white;
+    font-family: sans-serif;
+    font-size: 0.8rem
+}
