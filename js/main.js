@@ -199,6 +199,8 @@ function redrawMap()
     // requestAnimationFrame(generateProceduralMap);
 
     drawCursor();
+
+    drawPeople();
 }
 
 document.querySelector('.buttons__new-map').addEventListener('click', function () {
@@ -383,7 +385,6 @@ function getCursorFromMouse(mouse) {
 function doGetCursorFromMouse() {
     getCursorFromMouse(mouse);
 }
-
 
 // Draw map
 const screenCoords = [];
@@ -619,3 +620,29 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Placement on the map inside the grid
+function drawPeople() {
+
+    for (let x = 0; x <= 8; x += 0.1) {
+        let z = zAverage(x, 4.5);
+        let point = point3dIso(x, 4.5, z);
+
+        graphics.lineStyle(1, 0x00FF00);
+        graphics.drawRect(point.x, point.y, 1, 1);
+    }
+}
+
+function zAverage(xStart, yStart) {
+    // Get int value
+    x = Math.floor(xStart);
+    y = Math.floor(yStart);
+    // Corners coordonnées
+    let z1 = map[x][y];
+    let z2 = map[x + 1][y];
+    let z3 = map[x + 1][y + 1];
+    let z4 = map[x][y + 1];
+
+    let average = (z1 + z2 + z3 + z4) / 4;
+
+    return average;
+}
