@@ -623,8 +623,9 @@ function getRandomInt(min, max) {
 // Placement on the map inside the grid
 function drawPeople() {
 
-    for (let x = 0; x <= 8; x += 0.1) {
-        let z = zAverage(x, 4.5);
+    for (let x = 0; x <= 8; x += 0.2) {
+        // let z = zAverage(x, 4.5);
+        let z = map[Math.floor(x)][4] + (x - Math.trunc(x)) * 1; // 1 = pente sur x
         let point = point3dIso(x, 4.5, z);
 
         graphics.lineStyle(1, 0x00FF00);
