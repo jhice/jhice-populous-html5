@@ -23,6 +23,9 @@ let map = [
     [2, 2, 2, 1, 1, 1, 1, 1],
 ] // 7, 7
 
+// To store blockTypes
+let blocksMap = [];
+
 /**
  * Uniformise all the map
  */
@@ -155,6 +158,8 @@ function clearMap()
         map.push(row);
     }
     // console.log(map);
+    // Copy map to blocksMap
+    blocksMap = JSON.parse(JSON.stringify(map));
 }
 
 // uniformiseMap();
@@ -416,6 +421,9 @@ function drawMap()
                 blockType = '0000';
             }
 
+            // Store blockType in a map
+            blocksMap[x][y] = blockType;
+
             // Traçage du polygone
             // Pour chacun des 4 points
             // Copy corners
@@ -624,9 +632,24 @@ function getRandomInt(min, max) {
 function drawPeople() {
 
     for (let x = 0; x <= 8; x += 0.2) {
+
         // let z = zAverage(x, 4.5);
-        let z = map[Math.floor(x)][4] + (x - Math.trunc(x)) * 1; // 1 = pente sur x
-        let point = point3dIso(x, 4.5, z);
+
+        let y = 4.5;
+        let xInt = Math.floor(x);
+        let yInt = Math.floor(y);
+        let blockType = blocksMap[xInt][yInt];
+        console.log(blockType);
+
+        // Coord z de la map en x,y + (2.3 - 2 = 0.3) * pente
+        let z = map[xInt][yInt] + (x - Math.trunc(x)) * 1; // 1 = pente sur x
+        // 1001
+        if (blockType == '1001') {
+            // Coord z de la map en x,y + 1 - (2.3 - 2 = 0.3) * pente
+            z = map[xInt][yInt] - (x - Math.trunc(x)) * 1; // 1 = pente sur x
+        }
+
+        let point = point3dIso(x, y, z);
 
         graphics.lineStyle(1, 0x00FF00);
         graphics.drawRect(point.x, point.y, 1, 1);
