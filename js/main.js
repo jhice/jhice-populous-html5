@@ -306,7 +306,7 @@ function modifyLand(event) {
     // Modify land
     // Up = left click
     if (event.type == 'click') {
-        console.log(cursor);
+        // console.log(cursor);
         uniformisePointUpDown(cursor.x, cursor.y);
         redrawMap();
     }
@@ -314,7 +314,7 @@ function modifyLand(event) {
     if (event.type == 'contextmenu') {
         // Do not display the context menu
         event.preventDefault();
-        console.log(cursor);
+        // console.log(cursor);
         uniformisePointUpDown(cursor.x, cursor.y, -1);
         redrawMap();
     }
@@ -328,6 +328,10 @@ function drawCursor() {
     cursorGraphics.clear();
     cursorGraphics.lineStyle(1, 0xFF0000);
     cursorGraphics.drawRect(point.x - 2, point.y - 2, 4, 4);
+
+    // Debug
+    document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y];
+    document.getElementById('debug-block').textContent += ' ' + cursor.x + ',' + cursor.y;
 }
 
 // Get cursor from mouse
@@ -631,29 +635,125 @@ function getRandomInt(min, max) {
 // Placement on the map inside the grid
 function drawPeople() {
 
-    for (let x = 0; x <= 8; x += 0.2) {
+    for (let x = camera.x; x < camera.x + camera.width; x += 0.1) {
 
-        // let z = zAverage(x, 4.5);
+        let y = 4.5 + camera.y;
+        z = getZ(x, y);
+        let point = point3dIso(x - camera.x, y - camera.y, z);
 
-        let y = 4.5;
-        let xInt = Math.floor(x);
-        let yInt = Math.floor(y);
-        let blockType = blocksMap[xInt][yInt];
-        console.log(blockType);
-
-        // Coord z de la map en x,y + (2.3 - 2 = 0.3) * pente
-        let z = map[xInt][yInt] + (x - Math.trunc(x)) * 1; // 1 = pente sur x
-        // 1001
-        if (blockType == '1001') {
-            // Coord z de la map en x,y + 1 - (2.3 - 2 = 0.3) * pente
-            z = map[xInt][yInt] - (x - Math.trunc(x)) * 1; // 1 = pente sur x
-        }
-
-        let point = point3dIso(x, y, z);
-
-        graphics.lineStyle(1, 0x00FF00);
+        graphics.lineStyle(1, 0xFFFF00);
         graphics.drawRect(point.x, point.y, 1, 1);
     }
+
+    for (let y = camera.y; y < camera.y + camera.height; y += 0.1) {
+
+        let x = 4.5 + camera.x;
+        z = getZ(x, y);
+        let point = point3dIso(x - camera.x, y - camera.y, z);
+
+        graphics.lineStyle(1, 0xFFFF00);
+        graphics.drawRect(point.x, point.y, 1, 1);
+    }
+
+    // for (let r = 0; r <= 500; r += 1) {
+
+    //     let x = Math.random() * config.COLS;
+    //     let y = Math.random() * config.ROWS;
+    //     z = getZ(x, y);
+    //     let point = point3dIso(x, y, z);
+
+    //     graphics.lineStyle(1, 0x00FF00);
+    //     graphics.drawRect(point.x, point.y, 1, 1);
+    // }
+}
+
+function getZ(x, y) {
+    // calcul des parties entières et décimales de x et de y
+    let xInt = Math.floor(x);
+    let yInt = Math.floor(y);
+    let decimalX = x - xInt;
+    let decimalY = y - yInt;
+
+    let blockType = blocksMap[xInt][yInt];
+    // console.log(blockType);
+
+    // Default Z
+    let z = 0;
+
+    // 0000
+    if (blockType == '0000') {
+        z = 0;
+    }
+
+    // 0110
+    if (blockType == '0110') {
+        z = decimalX;
+    }
+    // 1100
+    if (blockType == '1100') {
+        z = - decimalY;
+    }
+    // 1001
+    if (blockType == '1001') {
+        z = - decimalX;
+    }
+    // 0011
+    if (blockType == '0011') {
+        z = decimalY;
+    }
+
+    // 0100
+    if (blockType == '0100') {
+        z = (decimalX < -decimalY + 1) ? decimalX : -decimalY + 1
+    }
+    // 0010
+    if (blockType == '0010') {
+        z = (decimalY > decimalX) ? decimalX : decimalY
+    }
+    // 0001
+    if (blockType == '0001') {
+        z = (decimalX > -decimalY + 1) ? -decimalX + 1 : decimalY
+    }
+    // 1000
+    if (blockType == '1000') {
+        z = (decimalY < decimalX) ? -decimalX : -decimalY
+    }
+
+    // 0101
+    if (blockType == '0101') {
+        z = (decimalX < -decimalY + 1) ? decimalY + decimalX : -decimalY + -decimalX + 2
+    }
+    // 1010
+    if (blockType == '1010') {
+        z = (decimalY > decimalX) ? decimalX - decimalY : decimalY - decimalX
+    }
+
+    // 0111
+    if (blockType == '0111') {
+        z = (decimalY > decimalX) ? decimalY : decimalX
+    }
+    // 1110
+    if (blockType == '1110') {
+        z = (decimalX < -decimalY + 1) ? -decimalY : decimalX - 1
+    }
+    // 1101
+    if (blockType == '1101') {
+        z = (decimalY > decimalX) ? -decimalX : -decimalY
+    }
+    // 1011
+    if (blockType == '1011') {
+        z = (decimalX < -decimalY + 1) ? -decimalX : decimalY - 1
+    }
+
+    // 1111
+    if (blockType == '1111') {
+        z = 0;
+    }
+
+    // Add base z elevation
+    z = z + map[xInt][yInt];
+
+    return z;
 }
 
 function zAverage(xStart, yStart) {
