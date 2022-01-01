@@ -145,6 +145,12 @@ cursorGraphics.x = 0;
 cursorGraphics.y = 240;
 app.stage.addChild(cursorGraphics);
 
+// For people
+const peopleGraphics = new PIXI.Graphics();
+peopleGraphics.x = 0;
+peopleGraphics.y = 240;
+app.stage.addChild(peopleGraphics);
+
 // Generate sea level map
 function clearMap()
 {
@@ -206,6 +212,8 @@ function redrawMap()
     drawCursor();
 
     drawPeople();
+
+    drawPeopleHuman();
 }
 
 document.querySelector('.buttons__new-map').addEventListener('click', function () {
@@ -770,3 +778,30 @@ function zAverage(xStart, yStart) {
 
     return average;
 }
+
+people = {
+    x: 0,
+    y: 0
+}
+
+function movePeople() {
+    people.x += 0.1;
+    people.y += 0.1;
+    console.log(people);
+}
+
+function drawPeopleHuman() {
+
+    let z = getZ(people.x, people.y);
+    let point = point3dIso(people.x - camera.x, people.y - camera.y, z);
+    console.log("z people", z);
+
+    peopleGraphics.clear();
+    peopleGraphics.lineStyle(1, 0x00FF00);
+    peopleGraphics.drawRect(point.x, point.y, -8, -16);
+}
+
+setInterval(() => {
+    movePeople();
+    drawPeopleHuman();
+}, 400);
