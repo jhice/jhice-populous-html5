@@ -214,9 +214,9 @@ function redrawMap()
 
     drawCursor();
 
-    drawPeople();
+    // drawDebugPeople();
 
-    drawPeopleHuman();
+    drawPeople();
 }
 
 document.querySelector('.buttons__new-map').addEventListener('click', function () {
@@ -644,7 +644,7 @@ function getRandomInt(min, max) {
 }
 
 // Placement on the map inside the grid
-function drawPeople() {
+function drawDebugPeople() {
 
     for (let x = camera.x; x < camera.x + camera.width; x += 0.1) {
 
@@ -783,17 +783,25 @@ function zAverage(xStart, yStart) {
 }
 
 people = {
-    x: 0,
-    y: 0
+    x: 0.5,
+    y: 0.5,
+    state: 'IDLE',
+    destination: null,
+    stepX: null,
+    stepY: null,
+    reachDestination: function () {
+        return +(people.x).toPrecision(2) == +(people.destination.x).toPrecision(2)
+            && +(people.y).toPrecision(2) == +(people.destination.y).toPrecision(2);
+    },
 }
 
 function movePeople() {
-    people.x += 0.1;
-    people.y += 0.1;
+    people.x += people.stepX;
+    people.y += people.stepY;
     // console.log(people);
 }
 
-function drawPeopleHuman() {
+function drawPeople() {
 
     // Clear people
     peopleGraphics.clear();
@@ -809,11 +817,48 @@ function drawPeopleHuman() {
     // console.log("z people", z);
 
     // peopleGraphics.lineStyle(1, 0x00FF00);
-    peopleGraphics.beginFill(0x00FF00);
+    peopleGraphics.beginFill(0xFF3300);
     peopleGraphics.drawRect(point.x - 4, point.y - 16, 8, 16);
 }
 
+function findDestination() {
+    do {
+        var xRand = getRandomInt(-1, 1);
+        var yRand = getRandomInt(-1, 1);
+        var xDest = people.x + xRand;
+        var yDest = people.y + yRand;
+    } while (xDest < 0 || xDest > config.COLS * config.BLOCK_SIZE || yDest < 0 || yDest > config.ROWS * config.BLOCK_SIZE || (xDest == people.x && yDest == people.y));
+
+    return new PIXI.Point(xDest, yDest);
+}
+
+function managePeople() {
+    switch (people.state) {
+        case 'IDLE':
+            let point = findDestination();
+            // console.log('Destination found', point);
+            people.destination = point;
+            let speed = 8;
+            people.stepX = (point.x - people.x) / speed;
+            people.stepY = (point.y - people.y) / speed;
+            // Reinit people coords
+            people.x = +(people.x).toPrecision(2);
+            people.y = +(people.y).toPrecision(2);
+            people.state = 'MOVE';
+            console.log(people);
+            break;
+        case 'MOVE':
+            movePeople();
+            drawPeople();
+            if (people.reachDestination()) {
+                people.state = 'IDLE';
+                // Don't wait interval and go
+                managePeople();
+            }
+        break;
+    }
+}
+
 setInterval(() => {
-    movePeople();
-    drawPeopleHuman();
+    managePeople();
 }, 400);
