@@ -125,6 +125,9 @@ const camera = {
     },
     width: 10,
     height: 10,
+    isVisible: function (x, y) {
+        return x >= camera.x && x < camera.x + camera.width && y >= camera.y && y < camera.y + camera.height;
+    }
 }
 
 // For sprites
@@ -787,18 +790,27 @@ people = {
 function movePeople() {
     people.x += 0.1;
     people.y += 0.1;
-    console.log(people);
+    // console.log(people);
 }
 
 function drawPeopleHuman() {
 
+    // Clear people
+    peopleGraphics.clear();
+
+    // Still on map ?
+    if (!camera.isVisible(people.x, people.y)) {
+        return;
+    }
+
+    // Draw people
     let z = getZ(people.x, people.y);
     let point = point3dIso(people.x - camera.x, people.y - camera.y, z);
-    console.log("z people", z);
+    // console.log("z people", z);
 
-    peopleGraphics.clear();
-    peopleGraphics.lineStyle(1, 0x00FF00);
-    peopleGraphics.drawRect(point.x, point.y, -8, -16);
+    // peopleGraphics.lineStyle(1, 0x00FF00);
+    peopleGraphics.beginFill(0x00FF00);
+    peopleGraphics.drawRect(point.x - 4, point.y - 16, 8, 16);
 }
 
 setInterval(() => {
