@@ -783,8 +783,8 @@ function zAverage(xStart, yStart) {
 }
 
 people = {
-    x: 0.5,
-    y: 0.5,
+    x: 4.5,
+    y: 4.5,
     state: 'IDLE',
     destination: null,
     stepX: null,
@@ -827,7 +827,8 @@ function findDestination() {
         var yRand = getRandomInt(-1, 1);
         var xDest = people.x + xRand;
         var yDest = people.y + yRand;
-    } while (xDest < 0 || xDest > config.COLS * config.BLOCK_SIZE || yDest < 0 || yDest > config.ROWS * config.BLOCK_SIZE || (xDest == people.x && yDest == people.y));
+        var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)] == '0000';
+    } while (isWater || xDest < 0 || xDest > config.COLS * config.BLOCK_SIZE || yDest < 0 || yDest > config.ROWS * config.BLOCK_SIZE || (xDest == people.x && yDest == people.y));
 
     return new PIXI.Point(xDest, yDest);
 }
@@ -862,3 +863,17 @@ function managePeople() {
 setInterval(() => {
     managePeople();
 }, 400);
+
+// Stats
+// var stats = new Stats();
+// stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.querySelector('footer').appendChild(stats.dom);
+
+// function animate() {
+
+//     stats.begin();
+//     // monitored code goes here
+//     stats.end();
+//     requestAnimationFrame(animate);
+// }
+// requestAnimationFrame(animate);
