@@ -201,9 +201,6 @@ const opposites = {
     0: 2
 }
 
-clearMap();
-generateProceduralMap();
-
 function redrawMap()
 {
     container.removeChildren();
@@ -224,17 +221,6 @@ document.querySelector('.buttons__new-map').addEventListener('click', function (
     generateProceduralMap();
     redrawMap();
 });
-
-
-const loader = PIXI.Loader.shared;
-loader.add("images/sprites.json").load(setup);
-
-let sheet;
-
-function setup() {
-    sheet = loader.resources['images/sprites.json'];
-    redrawMap();
-}
 
 // const loader = PIXI.Loader.shared;
 // const textures = {};
@@ -836,6 +822,7 @@ function findDestination() {
 function managePeople() {
     switch (people.state) {
         case 'IDLE':
+            console.log('IN IDLE');
             let point = findDestination();
             // console.log('Destination found', point);
             people.destination = point;
@@ -849,6 +836,7 @@ function managePeople() {
             console.log(people);
             break;
         case 'MOVE':
+            console.log('IN MOVE');
             movePeople();
             drawPeople();
             if (people.reachDestination()) {
@@ -860,9 +848,21 @@ function managePeople() {
     }
 }
 
-setInterval(() => {
-    managePeople();
-}, 400);
+const loader = PIXI.Loader.shared;
+loader.add("images/sprites.json").load(setup);
+
+let sheet;
+
+function setup() {
+    sheet = loader.resources['images/sprites.json'];
+    clearMap();
+    generateProceduralMap();
+    redrawMap();
+    setInterval(() => {
+        managePeople();
+    }, 16);
+}
+
 
 // Stats
 // var stats = new Stats();
