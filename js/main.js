@@ -57,7 +57,9 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
         return;
     }
 
+    // Elevate point
     map[baseX][baseY] += dir;
+
     // Value of baseX, baseY
     let baseMapValue = map[baseX][baseY];
 
@@ -79,6 +81,7 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
                 // Difference of 2 or more ?
                 let diff = mapValue - baseMapValue;
                 // console.log('diff', diff);
+
                 // Update adjacents points, up
                 if (diff == -2) {
                     // Update adjacents to adjacents points, recursively
@@ -89,8 +92,28 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
                     // Update adjacents to adjacents points, recursively
                     uniformisePointUpDown(x, y, dir);
                 }
+
+                // After uniformising around this point
+                // update Block Type X Y
+                updateBlockTypeXY(x, y);
             }
         }
+    }
+
+    // Update first elevated point
+    updateBlockTypeXY(baseX, baseY);
+}
+
+function updateBlockTypeXY(x, y) {
+    // Update block type from x, y
+    if (x < config.COLS && y < config.ROWS) {
+
+        let blockHeights = [map[x][y], map[x + 1][y], map[x + 1][y + 1], map[x][y + 1]];
+        let minHeight = Math.min(...blockHeights);
+        let blockType = blockHeights.map(item => item - minHeight);
+
+        blocksMap[x][y] = blockType.join('');
+        console.log(blocksMap[x][y]);
     }
 }
 
@@ -158,17 +181,20 @@ app.stage.addChild(peopleGraphics);
 function clearMap()
 {
     map = [];
+    blocksMap = [];
     for (let x = 0; x < config.ROWS + 1; x++) {
         let row = [];
+        let rowBlocks = [];
         for (let y = 0; y < config.COLS + 1; y++) {
             row.push(0);
             // row.push(getRandomInt(0, 1));
+            rowBlocks.push('0000');
         }
         map.push(row);
+        // Generate blocksMap to '0000'
+        blocksMap.push(rowBlocks);
     }
     // console.log(map);
-    // Copy map to blocksMap
-    blocksMap = JSON.parse(JSON.stringify(map));
 }
 
 // uniformiseMap();
@@ -416,14 +442,15 @@ function drawMap()
             // Ex. 2 2 2 3 => 0 0 0 1
             let blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
             // console.log('block type', blockType);
+
+            // Get blockType from the map
+            blockType = blocksMap[x][y];
+
             // Cas particulier du 0, 0, 0, 0 => sea level = 0000
             if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
                 // Sea level block
                 blockType = '0000';
             }
-
-            // Store blockType in a map
-            blocksMap[x][y] = blockType;
 
             // Traçage du polygone
             // Pour chacun des 4 points
@@ -814,29 +841,34 @@ function findDestination() {
         var xDest = people.x + xRand;
         var yDest = people.y + yRand;
         var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)] == '0000';
-    } while (isWater || xDest < 0 || xDest > config.COLS * config.BLOCK_SIZE || yDest < 0 || yDest > config.ROWS * config.BLOCK_SIZE || (xDest == people.x && yDest == people.y));
+    } while (isWater || xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS || (xDest == people.x && yDest == people.y));
 
     return new PIXI.Point(xDest, yDest);
 }
 
 function managePeople() {
+    // Debug
+    if (people.x < 0 || people.y < 0) {
+        people.state = 'STOOOOP';
+        console.log(people);
+    } 
     switch (people.state) {
         case 'IDLE':
-            console.log('IN IDLE');
+            // Reinit people coords
+            // people.x = +(people.x).toPrecision(2);
+            // people.y = +(people.y).toPrecision(2);
+            // console.log('IN IDLE');
             let point = findDestination();
             // console.log('Destination found', point);
             people.destination = point;
-            let speed = 8;
+            let speed = 4;
             people.stepX = (point.x - people.x) / speed;
             people.stepY = (point.y - people.y) / speed;
-            // Reinit people coords
-            people.x = +(people.x).toPrecision(2);
-            people.y = +(people.y).toPrecision(2);
             people.state = 'MOVE';
             console.log(people);
             break;
         case 'MOVE':
-            console.log('IN MOVE');
+            // console.log('IN MOVE');
             movePeople();
             drawPeople();
             if (people.reachDestination()) {
@@ -858,9 +890,9 @@ function setup() {
     clearMap();
     generateProceduralMap();
     redrawMap();
-    setInterval(() => {
-        managePeople();
-    }, 16);
+    // setInterval(() => {
+    //     managePeople();
+    // }, 16);
 }
 
 
