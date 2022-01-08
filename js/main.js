@@ -868,18 +868,18 @@ function findDestination() {
         var yRand = getRandomInt(-1, 1);
         var xDest = people.x + xRand;
         var yDest = people.y + yRand;
-        var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)] == '0000';
-    } while (isWater || xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS || (xDest == people.x && yDest == people.y));
+        var isOutOfMap = xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS;
+        if (!isOutOfMap) {
+            var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)] == '0000';
+        } else {
+            var isWater = true;
+        }
+    } while (isWater || isOutOfMap || (xDest == people.x && yDest == people.y));
 
     return new PIXI.Point(xDest, yDest);
 }
 
 function managePeople() {
-    // Debug
-    if (people.x < 0 || people.y < 0) {
-        people.state = 'STOOOOP';
-        console.log(people);
-    } 
     switch (people.state) {
         case 'IDLE':
             // Reinit people coords
@@ -889,11 +889,10 @@ function managePeople() {
             let point = findDestination();
             // console.log('Destination found', point);
             people.destination = point;
-            let speed = 4;
+            let speed = 8;
             people.stepX = (point.x - people.x) / speed;
             people.stepY = (point.y - people.y) / speed;
             people.state = 'MOVE';
-            console.log(people);
             break;
         case 'MOVE':
             // console.log('IN MOVE');
@@ -901,6 +900,7 @@ function managePeople() {
             drawPeople();
             if (people.reachDestination()) {
                 people.state = 'IDLE';
+                console.log(people);
                 // Don't wait interval and go
                 managePeople();
             }
@@ -918,9 +918,9 @@ function setup() {
     clearMap();
     generateProceduralMap();
     redrawMap();
-    // setInterval(() => {
-    //     managePeople();
-    // }, 16);
+    setInterval(() => {
+        managePeople();
+    }, 300);
 }
 
 
