@@ -104,54 +104,44 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
     updateBlockTypeXY(baseX, baseY);
 }
 
+/**
+ * Defines block type at x, y in blocksMap
+ * 
+ * @param {Number} x Map X
+ * @param {Number} y Map Y
+ */
 function updateBlockTypeXY(x, y) {
-    // Update block type from x, y
-    if (x < config.COLS && y < config.ROWS) {
 
-        let blockBase = map[x][y];
-        let blockHeights = [map[x][y], map[x + 1][y], map[x + 1][y + 1], map[x][y + 1]];
-        let minHeight = Math.min(...blockHeights);
-        let blockType = blockHeights.map(item => item - minHeight);
-
-        blockType = blockType.join('');
-        blocksMap[x][y] = blockType;
-        console.log(blockType);
-
-        if (blockBase > 0 && blockType == '0000') {
-            blocksMap[x][y] = '1111';
-            console.log('water to ground');
-        }
-
+    // Dont go out of map borders
+    if (x >= config.COLS || y >= config.ROWS) {
         return;
-
-        // Corners coordonnées
-        let z1 = map[x][y];
-        let z2 = map[x + 1][y];
-        let z3 = map[x + 1][y + 1];
-        let z4 = map[x][y + 1];
-
-        // Corners
-        const corners = [z1, z2, z3, z4];
-
-        // Détection du type de bloc xxxx (0 et 1)
-        // Valeur max
-        let zMax = Math.max(...corners) - 1;
-        // On réduit chaque coin de zMax -1
-        // Ex. 2 2 2 3 => 0 0 0 1
-        blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
-        // console.log('block type', blockType);
-
-        // Get blockType from the map
-        blocksMap[x][y] = blockType;
-
-        // Cas particulier du 0, 0, 0, 0 => sea level = 0000
-        if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
-            // Sea level block
-            blockType = '0000';
-        }
-
-        console.log(blocksMap[x][y]);
     }
+
+    // Corners coordonnées
+    let z1 = map[x][y];
+    let z2 = map[x + 1][y];
+    let z3 = map[x + 1][y + 1];
+    let z4 = map[x][y + 1];
+
+    // Corners
+    const corners = [z1, z2, z3, z4];
+
+    // Détection du type de bloc xxxx (0 et 1)
+    // Valeur max
+    let zMax = Math.max(...corners) - 1;
+    // On réduit chaque coin de zMax -1
+    // Ex. 2 2 2 3 => zMax - 1 = 2 => 0 0 0 1
+    // Ex. 1 0 1 0 => zMax - 1 = 0 => 1 0 1 0
+    blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
+
+    // Cas particulier du 0, 0, 0, 0 si z de base = 0 => sea level = 0000
+    if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
+        // Sea level block
+        blockType = '0000';
+    }
+
+    blocksMap[x][y] = blockType;
+    // console.log(blockType);
 }
 
 const config = {
@@ -392,6 +382,7 @@ function drawCursor() {
     // Debug
     document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y];
     document.getElementById('debug-block').textContent += ' ' + cursor.x + ',' + cursor.y;
+    document.getElementById('debug-block').textContent += ' ' + map[cursor.x][cursor.y];
 }
 
 // Get cursor from mouse
