@@ -108,11 +108,48 @@ function updateBlockTypeXY(x, y) {
     // Update block type from x, y
     if (x < config.COLS && y < config.ROWS) {
 
+        let blockBase = map[x][y];
         let blockHeights = [map[x][y], map[x + 1][y], map[x + 1][y + 1], map[x][y + 1]];
         let minHeight = Math.min(...blockHeights);
         let blockType = blockHeights.map(item => item - minHeight);
 
-        blocksMap[x][y] = blockType.join('');
+        blockType = blockType.join('');
+        blocksMap[x][y] = blockType;
+        console.log(blockType);
+
+        if (blockBase > 0 && blockType == '0000') {
+            blocksMap[x][y] = '1111';
+            console.log('water to ground');
+        }
+
+        return;
+
+        // Corners coordonnées
+        let z1 = map[x][y];
+        let z2 = map[x + 1][y];
+        let z3 = map[x + 1][y + 1];
+        let z4 = map[x][y + 1];
+
+        // Corners
+        const corners = [z1, z2, z3, z4];
+
+        // Détection du type de bloc xxxx (0 et 1)
+        // Valeur max
+        let zMax = Math.max(...corners) - 1;
+        // On réduit chaque coin de zMax -1
+        // Ex. 2 2 2 3 => 0 0 0 1
+        blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
+        // console.log('block type', blockType);
+
+        // Get blockType from the map
+        blocksMap[x][y] = blockType;
+
+        // Cas particulier du 0, 0, 0, 0 => sea level = 0000
+        if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
+            // Sea level block
+            blockType = '0000';
+        }
+
         console.log(blocksMap[x][y]);
     }
 }
@@ -440,7 +477,7 @@ function drawMap()
             let zMax = Math.max(...corners) - 1;
             // On réduit chaque coin de zMax -1
             // Ex. 2 2 2 3 => 0 0 0 1
-            let blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
+            // let blockType = [z1 - zMax, z2 - zMax, z3 - zMax, z4 - zMax].join('');
             // console.log('block type', blockType);
 
             // Get blockType from the map
@@ -449,7 +486,7 @@ function drawMap()
             // Cas particulier du 0, 0, 0, 0 => sea level = 0000
             if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
                 // Sea level block
-                blockType = '0000';
+                //blockType = '0000';
             }
 
             // Traçage du polygone
