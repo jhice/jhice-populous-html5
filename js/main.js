@@ -140,8 +140,34 @@ function updateBlockTypeXY(x, y) {
         blockType = '0000';
     }
 
-    blocksMap[x][y] = blockType;
+    blocksMap[x][y].type = blockType;
     // console.log(blockType);
+
+    if (blockType == '1111') {
+        // Base value
+        let value = 0;
+        // Reinit block value
+        blocksMap[x][y].value = 0;
+        // Block construction value
+        for (let i = x - 2; i <= x + 2; i++) {
+            // Out of offset x
+            if (i < 0 || i > config.ROWS) {
+                continue;
+            }
+            for (let j = y - 2; j <= y + 2; j++) {
+                // Out of offset x
+                if (j < 0 || j > config.COLS) {
+                    continue;
+                }
+                // For blockTypes 1111
+                if (blocksMap[i][j].type == '1111') {
+                    value += 1;
+                }
+            }
+        }
+        // Update block value
+        blocksMap[x][y].value = value;
+    }
 }
 
 const config = {
@@ -215,7 +241,7 @@ function clearMap()
         for (let y = 0; y < config.COLS + 1; y++) {
             row.push(0);
             // row.push(getRandomInt(0, 1));
-            rowBlocks.push('0000');
+            rowBlocks.push({type: '0000', value: 0});
         }
         map.push(row);
         // Generate blocksMap to '0000'
@@ -380,7 +406,7 @@ function drawCursor() {
     cursorGraphics.drawRect(point.x - 2, point.y - 2, 4, 4);
 
     // Debug
-    document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y];
+    document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y].type;
     document.getElementById('debug-block').textContent += ' ' + cursor.x + ',' + cursor.y;
     document.getElementById('debug-block').textContent += ' ' + map[cursor.x][cursor.y];
 }
@@ -472,7 +498,7 @@ function drawMap()
             // console.log('block type', blockType);
 
             // Get blockType from the map
-            blockType = blocksMap[x][y];
+            blockType = blocksMap[x][y].type;
 
             // Cas particulier du 0, 0, 0, 0 => sea level = 0000
             if (z1 === 0 && z2 === 0 && z3 === 0 && z4 === 0) {
@@ -491,26 +517,17 @@ function drawMap()
             // => dans getPolygonFromPoint()
             // screenCoords[String(x) + '@' + String(y)] = polygon.points[0].y;
 
-            // Blocks !
-            if (true || blockType === '1111' ||
-                blockType === '1100' ||
-                blockType === '0110' ||
-                blockType === '0100' ||
-                blockType === '0010' ||
-                blockType === '0001'
-            ) {
-                // let blockSprite = new PIXI.Sprite(textures['b' + blockType]);
-                let blockSprite = new PIXI.Sprite(sheet.textures['b' + blockType + '.png']);
+            // let blockSprite = new PIXI.Sprite(textures['b' + blockType]);
+            let blockSprite = new PIXI.Sprite(sheet.textures['b' + blockType + '.png']);
 
-                blockSprite.x = polygon.points[0].x;
-                blockSprite.y = polygon.points[0].y + config.BLOCK_OFFSET_Y;
-                // Cas des sprites qui démarrent à 1
-                if (blockType[0] == '1') {
-                    blockSprite.y += config.BLOCK_OFFSET_Y_PLUS;
-                }
-                // blockSprite.alpha = .5;
-                container.addChild(blockSprite);
+            blockSprite.x = polygon.points[0].x;
+            blockSprite.y = polygon.points[0].y + config.BLOCK_OFFSET_Y;
+            // Cas des sprites qui démarrent à 1
+            if (blockType[0] == '1') {
+                blockSprite.y += config.BLOCK_OFFSET_Y_PLUS;
             }
+            // blockSprite.alpha = .5;
+            container.addChild(blockSprite);
 
             // Diagonale !
             // Dès que 1 est différent des 3 autres
@@ -591,6 +608,16 @@ function drawMap()
             // let point = point3dIso(x, y, map[x][y])
             // graphics.lineStyle(1, 0x00FF00);
             // graphics.drawRect(point.x, point.y, 1, 1);
+
+            let textValue = new PIXI.Text(blocksMap[x][y].value, {
+                    fontSize: 12,
+                    fill: "white",
+                }
+            );
+            textValue.x = polygon.points[0].x; // + config.BLOCK_SIZE / 2;
+            textValue.y = polygon.points[0].y - 6;
+
+            container.addChild(textValue);
         }
     }
 }
@@ -726,7 +753,7 @@ function getZ(x, y) {
     let decimalX = x - xInt;
     let decimalY = y - yInt;
 
-    let blockType = blocksMap[xInt][yInt];
+    let blockType = blocksMap[xInt][yInt].type;
     // console.log(blockType);
 
     // Default Z
@@ -870,7 +897,7 @@ function findDestination() {
         var yDest = people.y + yRand;
         var isOutOfMap = xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS;
         if (!isOutOfMap) {
-            var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)] == '0000';
+            var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)].type == '0000';
         } else {
             var isWater = true;
         }
@@ -900,7 +927,7 @@ function managePeople() {
             drawPeople();
             if (people.reachDestination()) {
                 people.state = 'IDLE';
-                console.log(people);
+                // console.log(people);
                 // Don't wait interval and go
                 managePeople();
             }
