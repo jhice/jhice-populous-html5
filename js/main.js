@@ -102,6 +102,8 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
 
     // Update first elevated point
     updateBlockTypeXY(baseX, baseY);
+
+    updateBlockValue(baseX, baseY);
 }
 
 /**
@@ -142,19 +144,22 @@ function updateBlockTypeXY(x, y) {
 
     blocksMap[x][y].type = blockType;
     // console.log(blockType);
+}
+
+function updateBlockValue(x, y) {
+
+    blockType = blocksMap[x][y].type;
 
     if (blockType == '1111') {
         // Base value
         let value = 0;
-        // Reinit block value
-        blocksMap[x][y].value = 0;
         // Block construction value
-        for (let i = x - 2; i <= x + 2; i++) {
+        for (let i = x - 5; i <= x + 5; i++) {
             // Out of offset x
             if (i < 0 || i > config.ROWS) {
                 continue;
             }
-            for (let j = y - 2; j <= y + 2; j++) {
+            for (let j = y - 5; j <= y + 5; j++) {
                 // Out of offset x
                 if (j < 0 || j > config.COLS) {
                     continue;
@@ -163,10 +168,14 @@ function updateBlockTypeXY(x, y) {
                 if (blocksMap[i][j].type == '1111') {
                     value += 1;
                 }
+                console.log(i, j);
             }
         }
         // Update block value
         blocksMap[x][y].value = value;
+    } else {
+        // Reinit block value
+        blocksMap[x][y].value = 0;
     }
 }
 
@@ -216,7 +225,7 @@ app.stage.addChild(container);
 const graphics = new PIXI.Graphics();
 graphics.x = 0;
 graphics.y = 240;
-app.stage.addChild(graphics);
+// app.stage.addChild(graphics);
 
 // For cursor
 const cursorGraphics = new PIXI.Graphics();
