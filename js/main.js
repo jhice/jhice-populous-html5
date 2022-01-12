@@ -43,7 +43,7 @@ function uniformiseMap()
  * 8 values around a given point
  * cannot have 2 levels of difference
  */
-function uniformisePointUpDown(baseX, baseY, dir = 1)
+function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
 {
     // Dig at sea level ?
     if (map[baseX][baseY] == 0 && dir == -1) {
@@ -85,12 +85,12 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
                 // Update adjacents points, up
                 if (diff == -2) {
                     // Update adjacents to adjacents points, recursively
-                    uniformisePointUpDown(x, y, dir);
+                    blocksList = uniformisePointUpDown(x, y, dir, blocksList);
                 }
                 // Update adjacents points, down
                 if (diff == 2) {
                     // Update adjacents to adjacents points, recursively
-                    uniformisePointUpDown(x, y, dir);
+                    blocksList = uniformisePointUpDown(x, y, dir, blocksList);
                 }
 
                 // After uniformising around this point
@@ -103,7 +103,8 @@ function uniformisePointUpDown(baseX, baseY, dir = 1)
     // Update first elevated point
     updateBlockTypeXY(baseX, baseY);
 
-    updateBlockValue(baseX, baseY);
+    blocksList.push(new PIXI.Point(baseX, baseY));
+    return blocksList;
 }
 
 /**
@@ -146,25 +147,62 @@ function updateBlockTypeXY(x, y) {
     // console.log(blockType);
 }
 
+/**
+ * Parse blocks to be computed for "construction value"
+ * 
+ * @param {Array} blocks 
+ */
+function updateBlocksValue(blocks) {
+    for(block of blocks) {
+        updateBlockValue(block.x, block.y);
+    }
+}
+
+/**
+ * Parse blocks to be computed for "construction value"
+ * around a Point
+ * 
+ * @param {Point} point 
+ */
+function updateBlocksValueAround(point) {
+    for (let x = point.x - 7; x <= point.x + 7; x++) {
+        for (let y = point.y - 7; y <= point.y + 7; y++) {
+            if (x >= 0 && x <= config.ROWS && y >= 0 && y <= config.COLS) {
+                updateBlockValue(x, y);
+            }
+        }
+    }
+}
+
+/**
+ * Computes "construction value" at x, y ('1111' adjacent blockTypes)
+ * 
+ * @param {Number} x
+ * @param {Number} y 
+ */
 function updateBlockValue(x, y) {
 
+    // Get block type at x, y
     blockType = blocksMap[x][y].type;
 
+    // Computes value for flat block that is not water
     if (blockType == '1111') {
         // Base value
         let value = 0;
-        // Block construction value
-        for (let i = x - 5; i <= x + 5; i++) {
-            // Out of offset x
+        // Block construction value in and around the x, y block
+        for (let i = x - 1; i <= x + 1; i++) {
+            // Out of map offset x
             if (i < 0 || i > config.ROWS) {
+                // Next i
                 continue;
             }
-            for (let j = y - 5; j <= y + 5; j++) {
-                // Out of offset x
+            for (let j = y - 1; j <= y + 1; j++) {
+                // Out of map offset x
                 if (j < 0 || j > config.COLS) {
+                    // Next j
                     continue;
                 }
-                // For blockTypes 1111
+                // For blockTypes 1111, increase value by 1
                 if (blocksMap[i][j].type == '1111') {
                     value += 1;
                 }
@@ -174,7 +212,7 @@ function updateBlockValue(x, y) {
         // Update block value
         blocksMap[x][y].value = value;
     } else {
-        // Reinit block value
+        // If not flat, value is zero
         blocksMap[x][y].value = 0;
     }
 }
@@ -225,7 +263,8 @@ app.stage.addChild(container);
 const graphics = new PIXI.Graphics();
 graphics.x = 0;
 graphics.y = 240;
-// app.stage.addChild(graphics);
+app.stage.addChild(graphics);
+graphics.alpha = 0.2;
 
 // For cursor
 const cursorGraphics = new PIXI.Graphics();
@@ -392,7 +431,10 @@ function modifyLand(event) {
     // Up = left click
     if (event.type == 'click') {
         // console.log(cursor);
-        uniformisePointUpDown(cursor.x, cursor.y);
+        let blocks = uniformisePointUpDown(cursor.x, cursor.y, 1, []);
+        // console.log('uniformised blocks', blocks);
+        // updateBlocksValue(blocks);
+        updateBlocksValueAround(cursor);
         redrawMap();
     }
     // Down = right click
@@ -400,7 +442,10 @@ function modifyLand(event) {
         // Do not display the context menu
         event.preventDefault();
         // console.log(cursor);
-        uniformisePointUpDown(cursor.x, cursor.y, -1);
+        let blocks = uniformisePointUpDown(cursor.x, cursor.y, -1, []);
+        // console.log('uniformised blocks', blocks);
+        // updateBlocksValue(blocks);
+        updateBlocksValueAround(cursor);
         redrawMap();
     }
 }
