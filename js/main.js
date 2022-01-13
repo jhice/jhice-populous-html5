@@ -162,11 +162,12 @@ function updateBlocksValue(blocks) {
  * Parse blocks to be computed for "construction value"
  * around a Point
  * 
- * @param {Point} point 
+ * @param {Point} point x, y
+ * @param {Number} height block height => determines width around point
  */
-function updateBlocksValueAround(point) {
-    for (let x = point.x - 7; x <= point.x + 7; x++) {
-        for (let y = point.y - 7; y <= point.y + 7; y++) {
+function updateBlocksValueAround(point, height) {
+    for (let x = point.x - height; x <= point.x + height; x++) {
+        for (let y = point.y - height; y <= point.y + height; y++) {
             if (x >= 0 && x <= config.ROWS && y >= 0 && y <= config.COLS) {
                 updateBlockValue(x, y);
             }
@@ -189,14 +190,16 @@ function updateBlockValue(x, y) {
     if (blockType == '1111') {
         // Base value
         let value = 0;
+        //
+        console.log('*** NEW ***');
         // Block construction value in and around the x, y block
-        for (let i = x - 1; i <= x + 1; i++) {
+        for (let i = x - 2; i <= x + 2; i++) {
             // Out of map offset x
             if (i < 0 || i > config.ROWS) {
                 // Next i
                 continue;
             }
-            for (let j = y - 1; j <= y + 1; j++) {
+            for (let j = y - 2; j <= y + 2; j++) {
                 // Out of map offset x
                 if (j < 0 || j > config.COLS) {
                     // Next j
@@ -330,6 +333,7 @@ const opposites = {
 
 function redrawMap()
 {
+    // Remove all sprites from container
     container.removeChildren();
     graphics.clear();
 
@@ -431,10 +435,11 @@ function modifyLand(event) {
     // Up = left click
     if (event.type == 'click') {
         // console.log(cursor);
+        let zCursor = map[cursor.x][cursor.y];
         let blocks = uniformisePointUpDown(cursor.x, cursor.y, 1, []);
         // console.log('uniformised blocks', blocks);
         // updateBlocksValue(blocks);
-        updateBlocksValueAround(cursor);
+        updateBlocksValueAround(cursor, zCursor + 2);
         redrawMap();
     }
     // Down = right click
@@ -442,10 +447,11 @@ function modifyLand(event) {
         // Do not display the context menu
         event.preventDefault();
         // console.log(cursor);
+        let zCursor = map[cursor.x][cursor.y];
         let blocks = uniformisePointUpDown(cursor.x, cursor.y, -1, []);
         // console.log('uniformised blocks', blocks);
         // updateBlocksValue(blocks);
-        updateBlocksValueAround(cursor);
+        updateBlocksValueAround(cursor, zCursor + 2);
         redrawMap();
     }
 }
@@ -580,7 +586,7 @@ function drawMap()
             if (blockType[0] == '1') {
                 blockSprite.y += config.BLOCK_OFFSET_Y_PLUS;
             }
-            // blockSprite.alpha = .5;
+            blockSprite.alpha = blocksMap[x][y].value / 26 + 0.2;
             container.addChild(blockSprite);
 
             // Diagonale !
@@ -663,15 +669,17 @@ function drawMap()
             // graphics.lineStyle(1, 0x00FF00);
             // graphics.drawRect(point.x, point.y, 1, 1);
 
-            let textValue = new PIXI.Text(blocksMap[x][y].value, {
-                    fontSize: 12,
-                    fill: "white",
-                }
-            );
-            textValue.x = polygon.points[0].x; // + config.BLOCK_SIZE / 2;
-            textValue.y = polygon.points[0].y - 6;
-
-            container.addChild(textValue);
+            if (blocksMap[x][y].value != 0) {
+                let textValue = new PIXI.Text(blocksMap[x][y].value, {
+                        fontSize: 12,
+                        fill: "white",
+                    }
+                );
+                textValue.x = polygon.points[0].x; // + config.BLOCK_SIZE / 2;
+                textValue.y = polygon.points[0].y - 6;
+    
+                container.addChild(textValue);
+            }
         }
     }
 }
@@ -1006,15 +1014,15 @@ function setup() {
 
 
 // Stats
-// var stats = new Stats();
-// stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-// document.querySelector('footer').appendChild(stats.dom);
+var stats = new Stats();
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.querySelector('footer').appendChild(stats.dom);
 
-// function animate() {
+function animate() {
 
-//     stats.begin();
-//     // monitored code goes here
-//     stats.end();
-//     requestAnimationFrame(animate);
-// }
-// requestAnimationFrame(animate);
+    stats.begin();
+    // monitored code goes here
+    stats.end();
+    requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);

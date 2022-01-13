@@ -16,6 +16,7 @@ body {
 
 .buttons {
     margin: 0.5rem;
+    margin-left: 85px;
     position: absolute;
 }
 
