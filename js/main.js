@@ -26,6 +26,9 @@ let map = [
 // To store blockTypes
 let blocksMap = [];
 
+// To store buildBlocks
+let buildBlocks = [];
+
 /**
  * Uniformise all the map
  */
@@ -187,7 +190,7 @@ function updateBlockValue(x, y) {
     blockType = blocksMap[x][y].type;
 
     // Computes value for flat block that is not water
-    if (blockType == '1111') {
+    if (blockType == '1111' && buildBlocks[x][y] != 1) {
         // Base value
         let value = 0;
         // Space around the block
@@ -208,7 +211,7 @@ function updateBlockValue(x, y) {
                     continue;
                 }
                 // For blockTypes 1111, increase value by 1
-                if (blocksMap[i][j].type == '1111') {
+                if (blocksMap[i][j].type == '1111' && buildBlocks[i][j] != 1) {
                     value += 1;
                 }
                 console.log(i, j);
@@ -288,17 +291,21 @@ function clearMap()
 {
     map = [];
     blocksMap = [];
+    buildBlocks = [];
     for (let x = 0; x < config.ROWS + 1; x++) {
         let row = [];
         let rowBlocks = [];
+        let rowBuild = [];
         for (let y = 0; y < config.COLS + 1; y++) {
             row.push(0);
             // row.push(getRandomInt(0, 1));
             rowBlocks.push({type: '0000', value: 0});
+            rowBuild.push(getRandomInt(0, 1));
         }
         map.push(row);
         // Generate blocksMap to '0000'
         blocksMap.push(rowBlocks);
+        buildBlocks.push(rowBuild);
     }
     // console.log(map);
 }
