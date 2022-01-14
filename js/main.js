@@ -190,16 +190,18 @@ function updateBlockValue(x, y) {
     if (blockType == '1111') {
         // Base value
         let value = 0;
+        // Space around the block
+        let space = 1; // 2 for castles only
         //
         console.log('*** NEW ***');
         // Block construction value in and around the x, y block
-        for (let i = x - 2; i <= x + 2; i++) {
+        for (let i = x - space; i <= x + space; i++) {
             // Out of map offset x
             if (i < 0 || i > config.ROWS) {
                 // Next i
                 continue;
             }
-            for (let j = y - 2; j <= y + 2; j++) {
+            for (let j = y - space; j <= y + space; j++) {
                 // Out of map offset x
                 if (j < 0 || j > config.COLS) {
                     // Next j
