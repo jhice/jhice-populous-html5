@@ -26,9 +26,6 @@ let map = [
 // To store blockTypes
 let blocksMap = [];
 
-// To store buildBlocks
-let buildBlocks = [];
-
 /**
  * Uniformise all the map
  */
@@ -152,23 +149,12 @@ function updateBlockTypeXY(x, y) {
 
 /**
  * Parse blocks to be computed for "construction value"
- * 
- * @param {Array} blocks 
- */
-function updateBlocksValue(blocks) {
-    for(block of blocks) {
-        updateBlockValue(block.x, block.y);
-    }
-}
-
-/**
- * Parse blocks to be computed for "construction value"
  * around a Point
  * 
  * @param {Point} point x, y
  * @param {Number} height block height => determines width around point
  */
-function updateBlocksValueAround(point, height) {
+function updateBlockValueAround(point, height) {
     for (let x = point.x - height; x <= point.x + height; x++) {
         for (let y = point.y - height; y <= point.y + height; y++) {
             if (x >= 0 && x <= config.ROWS && y >= 0 && y <= config.COLS) {
@@ -180,24 +166,24 @@ function updateBlocksValueAround(point, height) {
 
 /**
  * Computes "construction value" at x, y ('1111' adjacent blockTypes)
- * 
+ * buildValue = 0 => not flat
+ * buildValue > 0 => construction value
+ *  
  * @param {Number} x
  * @param {Number} y 
  */
 function updateBlockValue(x, y) {
 
-    // Get block type at x, y
-    blockType = blocksMap[x][y].type;
+    // Get block at x, y
+    block = blocksMap[x][y];
 
-    // Computes value for flat block that is not water
-    if (blockType == '1111' && buildBlocks[x][y] != 1) {
-        // Base value
-        let value = 0;
+    // Computes buildValue for flat block that is not water and is empty (no rock, no building)
+    if (block.type == '1111' && block.class == 'empty') {
+        // Base buildValue
+        let buildValue = 0;
         // Space around the block
         let space = 1; // 2 for castles only
-        //
-        console.log('*** NEW ***');
-        // Block construction value in and around the x, y block
+        // Block construction buildValue in and around the x, y block
         for (let i = x - space; i <= x + space; i++) {
             // Out of map offset x
             if (i < 0 || i > config.ROWS) {
@@ -210,18 +196,17 @@ function updateBlockValue(x, y) {
                     // Next j
                     continue;
                 }
-                // For blockTypes 1111, increase value by 1
-                if (blocksMap[i][j].type == '1111' && buildBlocks[i][j] != 1) {
-                    value += 1;
+                // For free blockTypes 1111, increase buildValue by 1
+                if (blocksMap[i][j].type == '1111' && blocksMap[i][j].class == 'empty') {
+                    buildValue += 1;
                 }
-                console.log(i, j);
             }
         }
-        // Update block value
-        blocksMap[x][y].value = value;
+        // Update block buildValue
+        blocksMap[x][y].buildValue = buildValue;
     } else {
-        // If not flat, value is zero
-        blocksMap[x][y].value = 0;
+        // If not flat, buildValue is zero
+        blocksMap[x][y].buildValue = 0;
     }
 }
 
@@ -291,33 +276,23 @@ function clearMap()
 {
     map = [];
     blocksMap = [];
-    buildBlocks = [];
     for (let x = 0; x < config.ROWS + 1; x++) {
         let row = [];
         let rowBlocks = [];
-        let rowBuild = [];
         for (let y = 0; y < config.COLS + 1; y++) {
+            // z = 0
             row.push(0);
-            // row.push(getRandomInt(0, 1));
-            rowBlocks.push({type: '0000', value: 0});
-            rowBuild.push(getRandomInt(0, 1));
+            // Create water blocks
+            // with random rock on it
+            hasRock = getRandomInt(1, 2) == 1 ? 'rock' : 'empty';
+            rowBlocks.push({type: '0000', buildValue: 0, class: hasRock});
         }
         map.push(row);
         // Generate blocksMap to '0000'
         blocksMap.push(rowBlocks);
-        buildBlocks.push(rowBuild);
     }
     // console.log(map);
 }
-
-// uniformiseMap();
-// uniformisePointUpDown(3, 3);
-// uniformisePointUpDown(3, 3);
-// uniformisePointUpDown(3, 3);
-// uniformisePointUpDown(3, 3, -1);
-// uniformisePointUpDown(3, 3, -1);
-// uniformisePointUpDown(3, 3, -1);
-
 
 function generateProceduralMap()
 {
@@ -329,6 +304,7 @@ function generateProceduralMap()
         let randomX = getRandomInt(0, config.ROWS);
         let randomY = getRandomInt(0, config.COLS);
         uniformisePointUpDown(randomX, randomY, randomDir);
+        updateBlockValueAround({x: randomX, y: randomY}, 7);
     }
 }
 
@@ -448,7 +424,7 @@ function modifyLand(event) {
         let blocks = uniformisePointUpDown(cursor.x, cursor.y, 1, []);
         // console.log('uniformised blocks', blocks);
         // updateBlocksValue(blocks);
-        updateBlocksValueAround(cursor, zCursor + 2);
+        updateBlockValueAround(cursor, zCursor + 2);
         redrawMap();
     }
     // Down = right click
@@ -460,7 +436,7 @@ function modifyLand(event) {
         let blocks = uniformisePointUpDown(cursor.x, cursor.y, -1, []);
         // console.log('uniformised blocks', blocks);
         // updateBlocksValue(blocks);
-        updateBlocksValueAround(cursor, zCursor + 2);
+        updateBlockValueAround(cursor, zCursor + 2);
         redrawMap();
     }
 }
@@ -478,6 +454,7 @@ function drawCursor() {
     document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y].type;
     document.getElementById('debug-block').textContent += ' ' + cursor.x + ',' + cursor.y;
     document.getElementById('debug-block').textContent += ' ' + map[cursor.x][cursor.y];
+    document.getElementById('debug-block').textContent += ' ' + JSON.stringify(blocksMap[cursor.x][cursor.y]);
 }
 
 // Get cursor from mouse
@@ -595,7 +572,7 @@ function drawMap()
             if (blockType[0] == '1') {
                 blockSprite.y += config.BLOCK_OFFSET_Y_PLUS;
             }
-            blockSprite.alpha = blocksMap[x][y].value / 26 + 0.2;
+            blockSprite.alpha = blocksMap[x][y].buildValue / 26 + 0.2;
             container.addChild(blockSprite);
 
             // Diagonale !
@@ -678,8 +655,9 @@ function drawMap()
             // graphics.lineStyle(1, 0x00FF00);
             // graphics.drawRect(point.x, point.y, 1, 1);
 
-            if (blocksMap[x][y].value != 0) {
-                let textValue = new PIXI.Text(blocksMap[x][y].value, {
+            // Debug construction value for flat blocks only and not rock
+            if (blocksMap[x][y].type == '1111' && blocksMap[x][y].class != 'rock') {
+                let textValue = new PIXI.Text(blocksMap[x][y].buildValue, {
                         fontSize: 12,
                         fill: "white",
                     }
@@ -921,7 +899,7 @@ function zAverage(xStart, yStart) {
     return average;
 }
 
-people = {
+let people = {
     x: 4.5,
     y: 4.5,
     state: 'IDLE',
@@ -932,6 +910,12 @@ people = {
         return +(people.x).toPrecision(2) == +(people.destination.x).toPrecision(2)
             && +(people.y).toPrecision(2) == +(people.destination.y).toPrecision(2);
     },
+    gotoDestination: function(point) {
+        people.destination = point;
+        let speed = 8;
+        people.stepX = (point.x - people.x) / speed;
+        people.stepY = (point.y - people.y) / speed;
+    }
 }
 
 function movePeople() {
@@ -979,6 +963,10 @@ function findDestination() {
 
 function managePeople() {
     switch (people.state) {
+        case 'START':
+            // people.gotoDestination(new PIXI.Point(0.5 ,0.5));
+            // people.state = 'MOVE';
+            break;
         case 'IDLE':
             // Reinit people coords
             // people.x = +(people.x).toPrecision(2);
@@ -986,10 +974,7 @@ function managePeople() {
             // console.log('IN IDLE');
             let point = findDestination();
             // console.log('Destination found', point);
-            people.destination = point;
-            let speed = 8;
-            people.stepX = (point.x - people.x) / speed;
-            people.stepY = (point.y - people.y) / speed;
+            people.gotoDestination(point);
             people.state = 'MOVE';
             break;
         case 'MOVE':
@@ -997,12 +982,28 @@ function managePeople() {
             movePeople();
             drawPeople();
             if (people.reachDestination()) {
-                people.state = 'IDLE';
+                people.state = 'SETTLE';
                 // console.log(people);
                 // Don't wait interval and go
                 managePeople();
             }
-        break;
+            break;
+        case 'SETTLE':
+            // Get block under the people
+            let block = blocksMap[Math.floor(people.x)][Math.floor(people.y)];
+            console.log('try settling on', block);
+            // If flat and constructible
+            if (block.type == '1111' && block.buildValue == 1) {
+                // Construct
+                console.log('construct');
+                blocksMap[Math.floor(people.x)][Math.floor(people.y)].class = 'building';
+            } else {
+                // Move
+                people.state = 'IDLE';
+                // Don't wait interval and go
+                managePeople();
+            }
+            break;
     }
 }
 
