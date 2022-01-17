@@ -27,19 +27,6 @@ let map = [
 let blocksMap = [];
 
 /**
- * Uniformise all the map
- */
-function uniformiseMap()
-{
-    for (let x = 0; x < config.ROWS; x++) {
-        for (let y = 0; y < config.COLS; y++) {
-            // Uniformise one point
-            uniformisePoint(x, y);
-        }
-    }
-}
-
-/**
  * 8 values around a given point
  * cannot have 2 levels of difference
  */
@@ -177,10 +164,12 @@ function updateBlockValue(x, y) {
     // Get block at x, y
     block = blocksMap[x][y];
 
-    // Computes buildValue for flat block that is not water and is empty (no rock, no building)
-    if (block.type == '1111' && block.class == 'empty') {
+    // Computes buildValue for flat block that is not water and not rock
+    if (block.type == '1111' && block.class != 'rock') {
         // Base buildValue
         let buildValue = 0;
+        // Neighbours blocks list
+        let neighbours = [];
         // Space around the block
         let space = 1; // 2 for castles only
         // Block construction buildValue in and around the x, y block
@@ -196,17 +185,29 @@ function updateBlockValue(x, y) {
                     // Next j
                     continue;
                 }
-                // For free blockTypes 1111, increase buildValue by 1
-                if (blocksMap[i][j].type == '1111' && blocksMap[i][j].class == 'empty') {
+                // For free blockTypes 1111 and not rock, increase buildValue by 1
+                if (blocksMap[i][j].type == '1111' && blocksMap[i][j].class != 'rock') {
                     buildValue += 1;
+                    // Push to neighbours if not current block
+                    if (i != x || j != y) {
+                        neighbours.push({x: i, y: j});
+                    }
                 }
             }
         }
         // Update block buildValue
         blocksMap[x][y].buildValue = buildValue;
+        // Update block neighbours
+        blocksMap[x][y].neighbours = neighbours;
     } else {
         // If not flat, buildValue is zero
         blocksMap[x][y].buildValue = 0;
+        // Class is empty if not rock
+        if (block.class != 'rock') {
+            block.class = 'empty';
+        }
+        // Update block neighbours
+        blocksMap[x][y].neighbours = [];
     }
 }
 
@@ -284,8 +285,8 @@ function clearMap()
             row.push(0);
             // Create water blocks
             // with random rock on it
-            hasRock = getRandomInt(1, 2) == 1 ? 'rock' : 'empty';
-            rowBlocks.push({type: '0000', buildValue: 0, class: hasRock});
+            hasRock = getRandomInt(1, 4) == 1 ? 'rock' : 'empty';
+            rowBlocks.push({type: '0000', buildValue: 0, class: hasRock, neighbours: []});
         }
         map.push(row);
         // Generate blocksMap to '0000'
@@ -409,6 +410,11 @@ function manageKeys(event) {
     if (moveCursor) {
         drawCursor();
     }
+
+    // Debug
+    if (k == 'p') {
+        people.state = 'IDLE';
+    }
 }
 
 // Modify land by left and right click
@@ -452,8 +458,8 @@ function drawCursor() {
 
     // Debug
     document.getElementById('debug-block').textContent = blocksMap[cursor.x][cursor.y].type;
-    document.getElementById('debug-block').textContent += ' ' + cursor.x + ',' + cursor.y;
-    document.getElementById('debug-block').textContent += ' ' + map[cursor.x][cursor.y];
+    document.getElementById('debug-block').textContent += ' x:' + cursor.x + ', y:' + cursor.y;
+    document.getElementById('debug-block').textContent += ' z:' + map[cursor.x][cursor.y];
     document.getElementById('debug-block').textContent += ' ' + JSON.stringify(blocksMap[cursor.x][cursor.y]);
 }
 
@@ -657,7 +663,9 @@ function drawMap()
 
             // Debug construction value for flat blocks only and not rock
             if (blocksMap[x][y].type == '1111' && blocksMap[x][y].class != 'rock') {
-                let textValue = new PIXI.Text(blocksMap[x][y].buildValue, {
+                // Value + first letter of class
+                let content = blocksMap[x][y].buildValue + ' (' + blocksMap[x][y].class[0] + ')';
+                let textValue = new PIXI.Text(content, {
                         fontSize: 12,
                         fill: "white",
                     }
@@ -902,7 +910,7 @@ function zAverage(xStart, yStart) {
 let people = {
     x: 4.5,
     y: 4.5,
-    state: 'IDLE',
+    state: 'START',
     destination: null,
     stepX: null,
     stepY: null,
@@ -912,7 +920,7 @@ let people = {
     },
     gotoDestination: function(point) {
         people.destination = point;
-        let speed = 8;
+        let speed = 4;
         people.stepX = (point.x - people.x) / speed;
         people.stepY = (point.y - people.y) / speed;
     }
@@ -950,7 +958,9 @@ function findDestination() {
         var yRand = getRandomInt(-1, 1);
         var xDest = people.x + xRand;
         var yDest = people.y + yRand;
-        var isOutOfMap = xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS;
+        // For debug, limit to camera view
+        var isOutOfMap = xDest < 0 || xDest > camera.width || yDest < 0 || yDest > camera.height;
+        // var isOutOfMap = xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS;
         if (!isOutOfMap) {
             var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)].type == '0000';
         } else {
@@ -991,12 +1001,17 @@ function managePeople() {
         case 'SETTLE':
             // Get block under the people
             let block = blocksMap[Math.floor(people.x)][Math.floor(people.y)];
-            console.log('try settling on', block);
             // If flat and constructible
-            if (block.type == '1111' && block.buildValue == 1) {
+            if (block.type == '1111' && block.class == 'empty') {
                 // Construct
-                console.log('construct');
-                blocksMap[Math.floor(people.x)][Math.floor(people.y)].class = 'building';
+                // console.log('settling on', block);
+                block.class = 'house';
+                // Make neighbours as fields
+                for (neighbour of block.neighbours) {
+                    blocksMap[neighbour.x][neighbour.y].class = 'field';
+                }
+                // Force map redraw
+                redrawMap();
             } else {
                 // Move
                 people.state = 'IDLE';
