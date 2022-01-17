@@ -181,22 +181,25 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../var/www/html/populous/images/b0000.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0001.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0010.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0011.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0100.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0101.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0110.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b0111.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1000.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1001.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1010.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1011.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1100.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1101.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1110.png</key>
-            <key type="filename">../../../../../var/www/html/populous/images/b1111.png</key>
+            <key type="filename">../images/b0000.png</key>
+            <key type="filename">../images/b0001.png</key>
+            <key type="filename">../images/b0010.png</key>
+            <key type="filename">../images/b0011.png</key>
+            <key type="filename">../images/b0100.png</key>
+            <key type="filename">../images/b0101.png</key>
+            <key type="filename">../images/b0110.png</key>
+            <key type="filename">../images/b0111.png</key>
+            <key type="filename">../images/b1000.png</key>
+            <key type="filename">../images/b1001.png</key>
+            <key type="filename">../images/b1010.png</key>
+            <key type="filename">../images/b1011.png</key>
+            <key type="filename">../images/b1100.png</key>
+            <key type="filename">../images/b1101.png</key>
+            <key type="filename">../images/b1110.png</key>
+            <key type="filename">../images/b1111.png</key>
+            <key type="filename">../images/field.png</key>
+            <key type="filename">../images/house.png</key>
+            <key type="filename">../images/rock.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0,0</point_f>
@@ -214,22 +217,25 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../var/www/html/populous/images/b0000.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0001.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0010.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0100.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0110.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1100.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1111.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0011.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0101.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b0111.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1000.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1001.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1010.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1011.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1101.png</filename>
-            <filename>../../../../../var/www/html/populous/images/b1110.png</filename>
+            <filename>../images/b0000.png</filename>
+            <filename>../images/b0001.png</filename>
+            <filename>../images/b0010.png</filename>
+            <filename>../images/b0100.png</filename>
+            <filename>../images/b0110.png</filename>
+            <filename>../images/b1100.png</filename>
+            <filename>../images/b1111.png</filename>
+            <filename>../images/b0011.png</filename>
+            <filename>../images/b0101.png</filename>
+            <filename>../images/b0111.png</filename>
+            <filename>../images/b1000.png</filename>
+            <filename>../images/b1001.png</filename>
+            <filename>../images/b1010.png</filename>
+            <filename>../images/b1011.png</filename>
+            <filename>../images/b1101.png</filename>
+            <filename>../images/b1110.png</filename>
+            <filename>../images/field.png</filename>
+            <filename>../images/house.png</filename>
+            <filename>../images/rock.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

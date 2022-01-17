@@ -528,7 +528,7 @@ function doGetCursorFromMouse() {
 const screenCoords = [];
 function drawMap()
 {
-    for (let x = camera.x; x < camera.x + camera.width; x++) {
+    for (let x = camera.x + camera.width; x >= camera.x; x--) {
         for (let y = camera.y; y < camera.y + camera.height; y++) {
     // for (let x = config.ROWS - 1; x >= 0; x--) {
     //     for (let y = 0; y < config.COLS; y++) {
@@ -578,8 +578,16 @@ function drawMap()
             if (blockType[0] == '1') {
                 blockSprite.y += config.BLOCK_OFFSET_Y_PLUS;
             }
-            blockSprite.alpha = blocksMap[x][y].buildValue / 26 + 0.2;
+            // blockSprite.alpha = blocksMap[x][y].buildValue / 26 + 0.2;
             container.addChild(blockSprite);
+
+            // Second layer : houses, fields, rocks
+            if (blocksMap[x][y].class != 'empty') {
+                let classSprite = new PIXI.Sprite(sheet.textures[blocksMap[x][y].class + '.png']);
+                classSprite.x = blockSprite.x;
+                classSprite.y = blockSprite.y;
+                container.addChild(classSprite);
+            }
 
             // Diagonale !
             // Dès que 1 est différent des 3 autres
