@@ -285,7 +285,7 @@ function clearMap()
             row.push(0);
             // Create water blocks
             // with random rock on it
-            hasRock = getRandomInt(1, 4) == 1 ? 'rock' : 'empty';
+            hasRock = getRandomInt(1, 10) == 1 ? 'rock' : 'empty';
             rowBlocks.push({type: '0000', buildValue: 0, class: hasRock, neighbours: []});
         }
         map.push(row);
@@ -586,6 +586,10 @@ function drawMap()
                 let classSprite = new PIXI.Sprite(sheet.textures[blocksMap[x][y].class + '.png']);
                 classSprite.x = blockSprite.x;
                 classSprite.y = blockSprite.y;
+                // 1111 et rock
+                if (blockType === '1111' && blocksMap[x][y].class === 'rock') {
+                    classSprite.y -= config.BLOCK_OFFSET_Y_PLUS;
+                }
                 container.addChild(classSprite);
             }
 
@@ -678,7 +682,7 @@ function drawMap()
                         fill: "white",
                     }
                 );
-                textValue.x = polygon.points[0].x; // + config.BLOCK_SIZE / 2;
+                textValue.x = polygon.points[0].x + 6; // + config.BLOCK_SIZE / 2;
                 textValue.y = polygon.points[0].y - 6;
     
                 container.addChild(textValue);
