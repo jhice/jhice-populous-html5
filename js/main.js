@@ -165,7 +165,9 @@ function updateBlockValueAround(point, height) {
  * Computes "construction value" at x, y ('1111' adjacent blockTypes)
  * buildValue = 0 => not flat
  * buildValue > 0 => construction value
- *  
+ * 
+ * Updates neighbours
+ * 
  * @param {Number} x
  * @param {Number} y 
  */
@@ -204,19 +206,20 @@ function updateBlockValue(x, y) {
                         // House ?
                         if (block.class == 'house') {
                             // Neighbours block is field
+                            console.log('neighbours', i, j, 'for house at block', x, y);
                             blocksMap[i][j].class = 'field';
                         }
                     }
                 }
 
-                // Update house ?
-                if (blocksMap[i][j].class == 'house') {
-                    // If not current block to avoid recursion
-                    if (i != x || j != y) {
-                        console.log('update house at', i, i);
-                        updateBlockValue(i, j);
-                    }
-                }
+                // // Update house ?
+                // if (blocksMap[i][j].class == 'house') {
+                //     // If not current block to avoid recursion
+                //     if (i != x || j != y) {
+                //         console.log('update house at', i, j, 'from block at', x, y);
+                //         // updateBlockValue(i, j);
+                //     }
+                // }
 
                 // Remove house ?
             }
@@ -224,7 +227,7 @@ function updateBlockValue(x, y) {
         // Update block buildValue
         blocksMap[x][y].buildValue = buildValue;
         // Update block neighbours
-        blocksMap[x][y].neighbours = neighbours
+        blocksMap[x][y].neighbours = neighbours;
 
     } else {
         // If not flat, buildValue is zero
