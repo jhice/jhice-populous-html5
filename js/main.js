@@ -679,11 +679,11 @@ function drawMap()
                 let content = blocksMap[x][y].buildValue + ' (' + blocksMap[x][y].class[0] + ')';
                 let textValue = new PIXI.Text(content, {
                         fontSize: 12,
-                        fill: "white",
+                        fill: 0x333333,
                     }
                 );
-                textValue.x = polygon.points[0].x + 6; // + config.BLOCK_SIZE / 2;
-                textValue.y = polygon.points[0].y - 6;
+                textValue.x = polygon.points[0].x + 16; // + config.BLOCK_SIZE / 2;
+                textValue.y = polygon.points[0].y - 8;
     
                 container.addChild(textValue);
             }
