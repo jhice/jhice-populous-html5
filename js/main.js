@@ -201,14 +201,31 @@ function updateBlockValue(x, y) {
                     // Push to neighbours if not current block
                     if (i != x || j != y) {
                         neighbours.push({x: i, y: j});
+                        // House ?
+                        if (block.class == 'house') {
+                            // Neighbours block is field
+                            blocksMap[i][j].class = 'field';
+                        }
                     }
                 }
+
+                // Update house ?
+                if (blocksMap[i][j].class == 'house') {
+                    // If not current block to avoid recursion
+                    if (i != x || j != y) {
+                        console.log('update house at', i, i);
+                        updateBlockValue(i, j);
+                    }
+                }
+
+                // Remove house ?
             }
         }
         // Update block buildValue
         blocksMap[x][y].buildValue = buildValue;
         // Update block neighbours
-        blocksMap[x][y].neighbours = neighbours;
+        blocksMap[x][y].neighbours = neighbours
+
     } else {
         // If not flat, buildValue is zero
         blocksMap[x][y].buildValue = 0;
@@ -295,7 +312,7 @@ function clearMap()
             row.push(0);
             // Create water blocks, not walkable
             // with random rock on it
-            hasRock = getRandomInt(1, 4) == 1 ? 'rock' : 'empty';
+            hasRock = getRandomInt(1, 10) == 1 ? 'rock' : 'empty';
             rowBlocks.push({
                 type: '0000',
                 isWalkable: false,
@@ -429,7 +446,7 @@ function manageKeys(event) {
 
     // Debug
     if (k == 'p') {
-        people.state = 'IDLE';
+        people.state == 'START' ? people.state = 'IDLE' : people.state = 'START';
     }
 }
 
