@@ -69,6 +69,9 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
                 let diff = mapValue - baseMapValue;
                 // console.log('diff', diff);
 
+                // Current block class
+                let currentClass = blocksMap[x][y].class;
+            
                 // Update adjacents points, up
                 if (diff == -2) {
                     // Update adjacents to adjacents points, recursively
@@ -83,6 +86,14 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
                 // After uniformising around this point
                 // update Block Type X Y
                 updateBlockTypeXY(x, y);
+
+                // New block type
+                let newBlockType = blocksMap[x][y].type;
+
+                // House destroyed ?
+                if (currentClass == 'house' && newBlockType != '1111') {
+                    console.log('house destroyed at', x, y);
+                }
             }
         }
     }
@@ -220,8 +231,6 @@ function updateBlockValue(x, y) {
                 //         // updateBlockValue(i, j);
                 //     }
                 // }
-
-                // Remove house ?
             }
         }
         // Update block buildValue
@@ -238,6 +247,10 @@ function updateBlockValue(x, y) {
         }
         // Update block neighbours
         blocksMap[x][y].neighbours = [];
+
+        //
+        // Update house here ?
+        //
     }
 }
 
