@@ -131,7 +131,17 @@ function updateBlockTypeXY(x, y) {
     }
 
     blocksMap[x][y].type = blockType;
-    // console.log(blockType);
+
+    // Walkable ? (not rock)
+    if (blocksMap[x][y].class != 'rock') {
+        if (blockType != '0000') {
+            // Not water
+            blocksMap[x][y].isWalkable = true;
+        } else {
+            // Water
+            blocksMap[x][y].isWalkable = false;
+        }
+    }
 }
 
 /**
@@ -283,10 +293,16 @@ function clearMap()
         for (let y = 0; y < config.COLS + 1; y++) {
             // z = 0
             row.push(0);
-            // Create water blocks
+            // Create water blocks, not walkable
             // with random rock on it
-            hasRock = getRandomInt(1, 10) == 1 ? 'rock' : 'empty';
-            rowBlocks.push({type: '0000', buildValue: 0, class: hasRock, neighbours: []});
+            hasRock = getRandomInt(1, 4) == 1 ? 'rock' : 'empty';
+            rowBlocks.push({
+                type: '0000',
+                isWalkable: false,
+                buildValue: 0,
+                class: hasRock,
+                neighbours: [],
+            });
         }
         map.push(row);
         // Generate blocksMap to '0000'
@@ -974,11 +990,11 @@ function findDestination() {
         var isOutOfMap = xDest < 0 || xDest > camera.width || yDest < 0 || yDest > camera.height;
         // var isOutOfMap = xDest < 0 || xDest > config.COLS || yDest < 0 || yDest > config.ROWS;
         if (!isOutOfMap) {
-            var isWater = blocksMap[Math.floor(xDest)][Math.floor(yDest)].type == '0000';
-        } else {
-            var isWater = true;
-        }
-    } while (isWater || isOutOfMap || (xDest == people.x && yDest == people.y));
+            var isWalkable = blocksMap[Math.floor(xDest)][Math.floor(yDest)].isWalkable;
+        } /* else {
+            var isWalkable = true;
+        } */
+    } while (!isWalkable || isOutOfMap || (xDest == people.x && yDest == people.y));
 
     return new PIXI.Point(xDest, yDest);
 }
