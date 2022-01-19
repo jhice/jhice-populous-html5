@@ -528,7 +528,7 @@ function doGetCursorFromMouse() {
 const screenCoords = [];
 function drawMap()
 {
-    for (let x = camera.x + camera.width; x >= camera.x; x--) {
+    for (let x = camera.x + camera.width - 1; x >= camera.x; x--) {
         for (let y = camera.y; y < camera.y + camera.height; y++) {
     // for (let x = config.ROWS - 1; x >= 0; x--) {
     //     for (let y = 0; y < config.COLS; y++) {
