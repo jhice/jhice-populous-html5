@@ -93,6 +93,7 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
                 // House destroyed ?
                 if (currentClass == 'house' && newBlockType != '1111') {
                     console.log('house destroyed at', x, y);
+                    console.log('neighbours to check', blocksMap[x][y].houses);
                 }
             }
         }
@@ -335,6 +336,7 @@ function clearMap()
                 buildValue: 0,
                 class: hasRock,
                 neighbours: [],
+                houses: [],
             });
         }
         map.push(row);
@@ -1060,8 +1062,10 @@ function managePeople() {
             }
             break;
         case 'SETTLE':
+            let peopleIntX = Math.floor(people.x);
+            let peopleIntY = Math.floor(people.y);
             // Get block under the people
-            let block = blocksMap[Math.floor(people.x)][Math.floor(people.y)];
+            let block = blocksMap[peopleIntX][peopleIntY];
             // If flat and constructible
             if (block.type == '1111' && block.class == 'empty') {
                 // Construct
@@ -1070,6 +1074,8 @@ function managePeople() {
                 // Make neighbours as fields
                 for (neighbour of block.neighbours) {
                     blocksMap[neighbour.x][neighbour.y].class = 'field';
+                    // Reference current house for later use (house destroy)
+                    blocksMap[neighbour.x][neighbour.y].houses.push({x: peopleIntX, y: peopleIntY});
                 }
                 // Force map redraw
                 redrawMap();
