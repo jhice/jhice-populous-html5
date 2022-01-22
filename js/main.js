@@ -93,7 +93,20 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
                 // House destroyed ?
                 if (currentClass == 'house' && newBlockType != '1111') {
                     console.log('house destroyed at', x, y);
-                    console.log('neighbours to check', blocksMap[x][y].houses);
+                    console.log('neighbours to check', blocksMap[x][y].neighbours);
+                    // For each neighbours
+                    for (const neighbourObject of blocksMap[x][y].neighbours) {
+                        // Get block
+                        let neighbour = blocksMap[neighbourObject.x][neighbourObject.y];
+                        // If object coord for current point is found is neighbour houses
+                        // And is the only one
+                        if (neighbour.houses.length == 1) {
+                            console.log('empty neighbour', neighbour);
+                            // Empty houses and blockType is empty
+                            neighbour.houses = [];
+                            neighbour.class = 'empty';
+                        }
+                    }
                 }
             }
         }
@@ -209,13 +222,13 @@ function updateBlockValue(x, y) {
                     // Next j
                     continue;
                 }
-                // For free blockTypes 1111 and not rock, increase buildValue by 1
+                // If flat block and not rock, increase buildValue by 1
                 if (blocksMap[i][j].type == '1111' && blocksMap[i][j].class != 'rock') {
                     buildValue += 1;
                     // Push to neighbours if not current block
                     if (i != x || j != y) {
                         neighbours.push({x: i, y: j});
-                        // House ?
+                        // House at center x, y ?
                         if (block.class == 'house') {
                             // Neighbours block is field
                             console.log('neighbours', i, j, 'for house at block', x, y);
