@@ -100,6 +100,7 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
                         let neighbour = blocksMap[neighbourObject.x][neighbourObject.y];
                         // If object coord for current point is found is neighbour houses
                         // And is the only one
+                        // @todo to fix : field has more than one house referenced, pop it
                         if (neighbour.houses.length == 1) {
                             console.log('empty neighbour', neighbour);
                             // Empty houses and blockType is empty
@@ -230,9 +231,16 @@ function updateBlockValue(x, y) {
                         neighbours.push({x: i, y: j});
                         // House at center x, y ?
                         if (block.class == 'house') {
-                            // Neighbours block is field
-                            console.log('neighbours', i, j, 'for house at block', x, y);
+                            // Neighbour block is field
+                            // console.log('neighbours', i, j, 'for house at block', x, y);
                             blocksMap[i][j].class = 'field';
+                            // Reference current house for later use (house destroy)
+                            // if not already present
+                            // @link https://stackoverflow.com/questions/8217419/how-to-determine-if-javascript-array-contains-an-object-with-an-attribute-that-e
+                            let housePoint = { x: x, y: y };
+                            if (blocksMap[i][j].houses.filter(e => e.x == x && e.y == y).length == 0) {
+                                blocksMap[i][j].houses.push(housePoint);
+                            }
                         }
                     }
                 }
@@ -261,6 +269,8 @@ function updateBlockValue(x, y) {
         }
         // Update block neighbours
         blocksMap[x][y].neighbours = [];
+        // Update block houses
+        blocksMap[x][y].houses = [];
 
         //
         // Update house here ?
@@ -315,7 +325,7 @@ const graphics = new PIXI.Graphics();
 graphics.x = 0;
 graphics.y = 240;
 app.stage.addChild(graphics);
-graphics.alpha = 0.2;
+// graphics.alpha = 0.2;
 
 // For cursor
 const cursorGraphics = new PIXI.Graphics();
@@ -730,6 +740,18 @@ function drawMap()
             // Draw polygon over diagonals
             graphics.lineStyle(1, 0x555555);
             graphics.drawPolygon(polygon.polygon);
+
+            // Debug houses
+            for (house of blocksMap[x][y].houses) {
+                graphics.lineStyle(1, 0xcc3300);
+                // From current block
+                let blockPoint = point3dIso(x + 0.5, y + 0.5, map[x][y]);
+                graphics.moveTo(blockPoint.x, blockPoint.y);
+                // To its houses
+                // console.log(house);
+                let housePoint = point3dIso(house.x + 0.5, house.y + 0.5, map[house.x][house.y]);
+                graphics.lineTo(housePoint.x, housePoint.y);
+            }
 
             // Dots
             // console.log('dot');
