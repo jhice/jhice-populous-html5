@@ -92,19 +92,19 @@ function uniformisePointUpDown(baseX, baseY, dir = 1, blocksList = [])
 
                 // House destroyed ?
                 if (currentClass == 'house' && newBlockType != '1111') {
-                    console.log('house destroyed at', x, y);
-                    console.log('neighbours to check', blocksMap[x][y].neighbours);
+                    // console.log('house destroyed at', x, y);
+                    // console.log('neighbours to check', blocksMap[x][y].neighbours);
                     // For each neighbours
                     for (const neighbourObject of blocksMap[x][y].neighbours) {
                         // Get block
                         let neighbour = blocksMap[neighbourObject.x][neighbourObject.y];
-                        // If object coord for current point is found is neighbour houses
-                        // And is the only one
-                        // @todo to fix : field has more than one house referenced, pop it
-                        if (neighbour.houses.length == 1) {
-                            console.log('empty neighbour', neighbour);
+                        // Remove current house by keeping all the others
+                        neighbour.houses = neighbour.houses.filter(e => e.x != x || e.y != y);
+                        // console.log('empty neighbour', neighbour);
+                        // If neighbour houses are empty, block is empty
+                        if (neighbour.houses.length == 0) {
                             // Empty houses and blockType is empty
-                            neighbour.houses = [];
+                            // neighbour.houses = [];
                             neighbour.class = 'empty';
                         }
                     }
@@ -284,7 +284,7 @@ const config = {
     BLOCK_SIZE: 32, // Côté du losange final
     BLOCK_OFFSET_Y: -32,
     BLOCK_OFFSET_Y_PLUS: 16,
-
+    DEBUG: false,
 }
 
 const cursor = {
@@ -741,16 +741,18 @@ function drawMap()
             graphics.lineStyle(1, 0x555555);
             graphics.drawPolygon(polygon.polygon);
 
-            // Debug houses
-            for (house of blocksMap[x][y].houses) {
-                graphics.lineStyle(1, 0xcc3300);
-                // From current block
-                let blockPoint = point3dIso(x + 0.5, y + 0.5, map[x][y]);
-                graphics.moveTo(blockPoint.x, blockPoint.y);
-                // To its houses
-                // console.log(house);
-                let housePoint = point3dIso(house.x + 0.5, house.y + 0.5, map[house.x][house.y]);
-                graphics.lineTo(housePoint.x, housePoint.y);
+            // Debug houses (bug/to fix : camera not managed)
+            if (config.DEBUG) {
+                for (house of blocksMap[x][y].houses) {
+                    graphics.lineStyle(1, 0xcc3300);
+                    // From current block
+                    let blockPoint = point3dIso(x + 0.5, y + 0.5, map[x][y]);
+                    graphics.moveTo(blockPoint.x, blockPoint.y);
+                    // To its houses
+                    // console.log(house);
+                    let housePoint = point3dIso(house.x + 0.5, house.y + 0.5, map[house.x][house.y]);
+                    graphics.lineTo(housePoint.x, housePoint.y);
+                }
             }
 
             // Dots
@@ -760,18 +762,20 @@ function drawMap()
             // graphics.drawRect(point.x, point.y, 1, 1);
 
             // Debug construction value for flat blocks only and not rock
-            if (blocksMap[x][y].type == '1111' && blocksMap[x][y].class != 'rock') {
-                // Value + first letter of class
-                let content = blocksMap[x][y].buildValue + ' (' + blocksMap[x][y].class[0] + ')';
-                let textValue = new PIXI.Text(content, {
-                        fontSize: 12,
-                        fill: 0x333333,
-                    }
-                );
-                textValue.x = polygon.points[0].x + 16; // + config.BLOCK_SIZE / 2;
-                textValue.y = polygon.points[0].y - 8;
-    
-                container.addChild(textValue);
+            if (config.DEBUG) {
+                if (blocksMap[x][y].type == '1111' && blocksMap[x][y].class != 'rock') {
+                    // Value + first letter of class
+                    let content = blocksMap[x][y].buildValue + ' (' + blocksMap[x][y].class[0] + ')';
+                    let textValue = new PIXI.Text(content, {
+                            fontSize: 12,
+                            fill: 0x333333,
+                        }
+                    );
+                    textValue.x = polygon.points[0].x + 16; // + config.BLOCK_SIZE / 2;
+                    textValue.y = polygon.points[0].y - 8;
+        
+                    container.addChild(textValue);
+                }
             }
         }
     }
